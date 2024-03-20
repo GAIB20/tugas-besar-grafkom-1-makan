@@ -87,7 +87,12 @@ document.addEventListener('mousedown', (event) => {
 
 document.addEventListener('mousemove', (event) => {
     if(!isDone && isDown) {
-
+        currPoint = getMousePosition(canvas, event)
+        vertices[0] = initPoint.x
+        vertices[1] = initPoint.y
+        vertices[2] = currPoint.x
+        vertices[3] = currPoint.y
+        render()
     }
 }, false)
 
