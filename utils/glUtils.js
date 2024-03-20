@@ -3,8 +3,8 @@ const fs = document.getElementById("fragment-shader")
 const canvas = document.getElementById("glCanvas")
 const gl = canvas.getContext("webgl")
 
-canvas.height = 1000
-canvas.width = 1000
+canvas.height = 500
+canvas.width = 500
 
 // Global Vars
 var scale = 1
