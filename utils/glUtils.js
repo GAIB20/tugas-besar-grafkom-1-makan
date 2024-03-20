@@ -17,6 +17,7 @@ var isMove = false
 var isDone = false
 var initPoint = [0,0]
 var endPoint = [0,0]
+var midPoint = [0,0]
 
 // Initialize viewport and background color
 gl.viewport(0,0, canvas.width, canvas.height)

@@ -38,6 +38,7 @@
     uniform float rotationAngle;
     uniform float scaleFactor;
     uniform vec2 translation;
+    uniform vec2 midpointLoc;
 
     void main() {
         float theta = radians(rotationAngle);
@@ -52,8 +53,17 @@
             0, scaleFactor
         );
 
-        vec2 newPosition = rotationMatrix * scalingMatrix * position;
-        vec2 finalPosition = newPosition + translation;
+        // Translate the position to be relative to the midpoint
+        vec2 relativePosition = position - midpointLoc;
+    
+        // Apply scaling
+        vec2 scaledPosition = scalingMatrix * relativePosition;
+    
+        // Apply rotation
+        vec2 rotatedPosition = rotationMatrix * scaledPosition;
+    
+        // Translate back to the original coordinate system and apply translation
+        vec2 finalPosition = rotatedPosition + midpointLoc + translation;
 
         gl_Position = vec4(finalPosition, 0, 1);
     }

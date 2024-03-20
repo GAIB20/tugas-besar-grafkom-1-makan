@@ -26,6 +26,7 @@ function render() {
     var scaleLocation = gl.getUniformLocation(program, "scaleFactor")
     var rotationLocation = gl.getUniformLocation(program, "rotationAngle")
     var translationLocation = gl.getUniformLocation(program, "translation")
+    var midPointLocation = gl.getUniformLocation(program, "midpointLoc")
 
     // Bind scaling factor to variable scale
     gl.uniform1f(scaleLocation, scale)
@@ -35,6 +36,7 @@ function render() {
 
     // Bind Translation
     gl.uniform2fv(translationLocation, translation)
+    gl.uniform2fv(midPointLocation, midPoint)
 
     var positionAttributeLocation = gl.getAttribLocation(program, "position")
     gl.enableVertexAttribArray(positionAttributeLocation)
@@ -129,6 +131,9 @@ document.addEventListener('mouseup', (event) => {
         vertices[5] = initPoint.y + minDim * signY
         vertices[6] = initPoint.x
         vertices[7] = initPoint.y + minDim * signY
+
+        midPoint = findMidpoint(initPoint, endPoint);
+        
         render()
     }
 }, false)
