@@ -53,17 +53,9 @@
             0, scaleFactor
         );
 
-        // Translate the position to be relative to the midpoint
         vec2 relativePosition = position - midpointLoc;
-    
-        // Apply scaling
-        vec2 scaledPosition = scalingMatrix * relativePosition;
-    
-        // Apply rotation
-        vec2 rotatedPosition = rotationMatrix * scaledPosition;
-    
-        // Translate back to the original coordinate system and apply translation
-        vec2 finalPosition = rotatedPosition + midpointLoc + translation;
+        vec2 transformedLocation = rotationMatrix * scalingMatrix * relativePosition;
+        vec2 finalPosition = transformedLocation + midpointLoc + translation;
 
         gl_Position = vec4(finalPosition, 0, 1);
     }
