@@ -42,10 +42,6 @@ function render() {
     gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
 }
 
-window.onload = () => {
-    render()
-}
-
 // For new scaling
 document.getElementById("scaling").oninput = () => {
     const scaleFactor = parseFloat(document.getElementById("scaling").value)
@@ -83,3 +79,56 @@ function animateCanvas() {
         requestAnimationFrame(animateCanvas)
     }
 }
+
+document.addEventListener('mousedown', (event) => {
+    isDown = true
+    console.log("ISMOVE", isMove)
+    if(!isDone){
+        initPoint = getMousePosition(canvas, event)
+        console.log("INIT", initPoint)
+    }
+}, false)
+
+document.addEventListener('mousemove', (event) => {
+    if(!isDone && isDown) {
+        currPoint = getMousePosition(canvas, event)
+        const width = Math.abs(currPoint.x - initPoint.x)
+        const height = Math.abs(currPoint.y - initPoint.y)
+        const minDim = Math.min(width, height)
+        const signX = currPoint.x > initPoint.x ? 1 : -1
+        const signY = currPoint.y > initPoint.y ? 1 : -1
+        
+        vertices[0] = initPoint.x
+        vertices[1] = initPoint.y
+        vertices[2] = initPoint.x + minDim * signX
+        vertices[3] = initPoint.y
+        vertices[4] = initPoint.x + minDim * signX
+        vertices[5] = initPoint.y + minDim * signY
+        vertices[6] = initPoint.x
+        vertices[7] = initPoint.y + minDim * signY
+
+        render()
+    }
+}, false)
+
+document.addEventListener('mouseup', (event) => {
+    if(!isDone){
+        isDone = true
+        endPoint = getMousePosition(canvas, event)
+        const width = Math.abs(endPoint.x - initPoint.x)
+        const height = Math.abs(endPoint.y - initPoint.y)
+        const minDim = Math.min(width, height)
+        const signX = endPoint.x > initPoint.x ? 1 : -1
+        const signY = endPoint.y > initPoint.y ? 1 : -1
+        
+        vertices[0] = initPoint.x
+        vertices[1] = initPoint.y
+        vertices[2] = initPoint.x + minDim * signX
+        vertices[3] = initPoint.y
+        vertices[4] = initPoint.x + minDim * signX
+        vertices[5] = initPoint.y + minDim * signY
+        vertices[6] = initPoint.x
+        vertices[7] = initPoint.y + minDim * signY
+        render()
+    }
+}, false)
