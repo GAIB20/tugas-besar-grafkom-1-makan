@@ -94,19 +94,15 @@ document.addEventListener('mousedown', (event) => {
 document.addEventListener('mousemove', (event) => {
     if(!isDone && isDown) {
         currPoint = getMousePosition(canvas, event)
-        const width = Math.abs(currPoint.x - initPoint.x)
-        const height = Math.abs(currPoint.y - initPoint.y)
-        const signX = currPoint.x > initPoint.x ? 1 : -1
-        const signY = currPoint.y > initPoint.y ? 1 : -1
         
         vertices[0] = initPoint.x
         vertices[1] = initPoint.y
-        vertices[2] = initPoint.x + width * signX
+        vertices[2] = currPoint.x
         vertices[3] = initPoint.y
-        vertices[4] = initPoint.x + width * signX
-        vertices[5] = initPoint.y + height * signY
+        vertices[4] = currPoint.x
+        vertices[5] = currPoint.y
         vertices[6] = initPoint.x
-        vertices[7] = initPoint.y + height * signY
+        vertices[7] = currPoint.y
 
         render()
     }
@@ -116,19 +112,15 @@ document.addEventListener('mouseup', (event) => {
     if(!isDone){
         isDone = true
         endPoint = getMousePosition(canvas, event)
-        const width = Math.abs(endPoint.x - initPoint.x)
-        const height = Math.abs(endPoint.y - initPoint.y)
-        const signX = endPoint.x > initPoint.x ? 1 : -1
-        const signY = endPoint.y > initPoint.y ? 1 : -1
         
         vertices[0] = initPoint.x
         vertices[1] = initPoint.y
-        vertices[2] = initPoint.x + width * signX
+        vertices[2] = endPoint.x
         vertices[3] = initPoint.y
-        vertices[4] = initPoint.x + width * signX
-        vertices[5] = initPoint.y + height * signY
+        vertices[4] = endPoint.x
+        vertices[5] = endPoint.y
         vertices[6] = initPoint.x
-        vertices[7] = initPoint.y + height * signY
+        vertices[7] = endPoint.y
 
         midPoint = findMidpoint(initPoint, endPoint);
         
