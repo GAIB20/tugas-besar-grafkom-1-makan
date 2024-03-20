@@ -6,12 +6,64 @@
     <title>Tugas Besar WEB-GL</title>
 </head>
 <body>
-    <h1>Tugas Besar 1 Grafika Komputer</h1>
-    <ul>
-        <li><a href="./line">Line</a></li>
-        <li><a href="./square/">Square</a></li>
-        <li>Rectangle</li>
-        <li>Polygon</li>
-    </ul>
+    <div style="padding: 20px;">
+        <h1>Tugas Besar 1 Grafika Komputer</h1>
+        <div style="margin: 0 auto;">
+            <canvas id="glCanvas" style="border: solid #444; width: 500px; height: 500;"></canvas>
+            <div>
+                <label>X Position</label>
+                <input type="range" min="-1" max="1" step="0.01" value="0" id="x-translate">
+            </div>
+            <div>
+                <label>Y Position</label>
+                <input type="range" min="-1" max="1" step="0.01" value="0" id="y-translate">
+            </div>
+            <div>
+                <label>Scaling</label>
+                <input type="range" min="0" max="2" step="0.01" value="1" id="scaling">
+            </div>
+            <div>
+                <label>Rotation Angle</label>
+                <input type="range" min="0" max="360" step="0.01" value="0" id="rotation">
+            </div>
+            <div>
+                <button id="animate">Animate</button>
+            </div>
+        </div>
+    </div>
 </body>
+<script type="x-shader/x-vertex" id="vertex-shader">
+    attribute vec2 position;
+
+    uniform float rotationAngle;
+    uniform float scaleFactor;
+    uniform vec2 translation;
+
+    void main() {
+        float theta = radians(rotationAngle);
+
+        mat2 rotationMatrix = mat2(
+            cos(theta), -sin(theta),
+            sin(theta), cos(theta)
+        );
+
+        mat2 scalingMatrix = mat2(
+            scaleFactor, 0,
+            0, scaleFactor
+        );
+
+        vec2 newPosition = rotationMatrix * scalingMatrix * position;
+        vec2 finalPosition = newPosition + translation;
+
+        gl_Position = vec4(finalPosition, 0, 1);
+    }
+</script>
+<script type="x-shader/x-fragment" id="fragment-shader">
+    precision mediump float;
+    void main(){
+        gl_FragColor = vec4(0.0, 0.1, 1.0, 1);
+    }
+</script>
+<script src="./utils/pointPicker.js"></script>
+<script src="./utils/glUtils.js"></script>
 </html>
