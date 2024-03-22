@@ -132,8 +132,7 @@ document.addEventListener('mouseup', (event) => {
         vertices[6] = initPoint.x
         vertices[7] = initPoint.y + minDim * signY
 
-        midPoint = findMidpoint(initPoint, endPoint);
-        
+        midPoint = findMidpoint({x: vertices[0], y: vertices[1]}, {x:vertices[4],y:vertices[5]})        
         render()
     }
 }, false)
