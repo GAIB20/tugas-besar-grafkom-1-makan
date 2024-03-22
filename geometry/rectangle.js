@@ -24,6 +24,8 @@ function render() {
 
     // Get Position and Draw
     var scaleLocation = gl.getUniformLocation(program, "scaleFactor")
+    var xTransformLocation = gl.getUniformLocation(program, "transformX")
+    var yTransformLocation = gl.getUniformLocation(program, "transformY")
     var rotationLocation = gl.getUniformLocation(program, "rotationAngle")
     var translationLocation = gl.getUniformLocation(program, "translation")
     var shearLocation = gl.getUniformLocation(program, "shearFactor")
@@ -31,6 +33,8 @@ function render() {
 
     // Bind scaling factor to variable scale
     gl.uniform1f(scaleLocation, scale)
+    gl.uniform1f(xTransformLocation, xTransform)
+    gl.uniform1f(yTransformLocation, yTransform)
 
     // Bind rotation factor to variable scale
     gl.uniform1f(rotationLocation, rotation)
@@ -52,6 +56,18 @@ function render() {
 document.getElementById("scaling").oninput = () => {
     const scaleFactor = parseFloat(document.getElementById("scaling").value)
     scale = scaleFactor
+    render()
+}
+
+document.getElementById("x-transform").oninput = () => {
+    const scaleFactor = parseFloat(document.getElementById("x-transform").value)
+    xTransform = scaleFactor
+    render()
+}
+
+document.getElementById("y-transform").oninput = () => {
+    const scaleFactor = parseFloat(document.getElementById("y-transform").value)
+    yTransform = scaleFactor
     render()
 }
 

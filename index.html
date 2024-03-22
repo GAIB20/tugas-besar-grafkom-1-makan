@@ -35,6 +35,14 @@
                 <input type="range" min="-1" max="1" step="0.01" value="0" id="y-shear">
             </div>
             <div>
+                <label>Transform X</label>
+                <input type="range" min="0" max="1" step="0.01" value="1" id="x-transform">
+            </div>
+            <div>
+                <label>Transform Y</label>
+                <input type="range" min="0" max="1" step="0.01" value="1" id="y-transform">
+            </div>
+            <div>
                 <button id="animate">Animate</button>
             </div>
         </div>
@@ -46,6 +54,8 @@
     uniform float rotationAngle;
     uniform float scaleFactor;
     uniform vec2 shearFactor;
+    uniform float transformX;
+    uniform float transformY;
     uniform vec2 translation;
     uniform vec2 midpointLoc;
 
@@ -67,8 +77,18 @@
             shearFactor.x, 1
         );
 
+        mat2 xTransform = mat2(
+            transformX, 0,
+            0, 1
+        );
+
+        mat2 yTransform = mat2(
+            1, 0,
+            0, transformY
+        );
+
         vec2 relativePosition = position - midpointLoc;
-        vec2 transformedLocation = rotationMatrix * scalingMatrix * shearMatrix * relativePosition;
+        vec2 transformedLocation = rotationMatrix * scalingMatrix * xTransform * yTransform * shearMatrix * relativePosition;
         vec2 finalPosition = transformedLocation + midpointLoc + translation;
 
         gl_Position = vec4(finalPosition, 0, 1);
@@ -82,5 +102,5 @@
 </script>
 <script src="./utils/pointPicker.js"></script>
 <script src="./utils/glUtils.js"></script>
-<script src="geometry/rectangle.js"></script>
+<script src="geometry/line.js"></script>
 </html>
