@@ -27,6 +27,14 @@
                 <input type="range" min="0" max="360" step="0.01" value="0" id="rotation">
             </div>
             <div>
+                <label>X Shear</label>
+                <input type="range" min="-1" max="1" step="0.01" value="0" id="x-shear">
+            </div>
+            <div>
+                <label>Y Shear</label>
+                <input type="range" min="-1" max="1" step="0.01" value="0" id="y-shear">
+            </div>
+            <div>
                 <button id="animate">Animate</button>
             </div>
         </div>
@@ -37,6 +45,7 @@
 
     uniform float rotationAngle;
     uniform float scaleFactor;
+    uniform vec2 shearFactor;
     uniform vec2 translation;
     uniform vec2 midpointLoc;
 
@@ -53,8 +62,13 @@
             0, scaleFactor
         );
 
+        mat2 shearMatrix = mat2(
+            1, shearFactor.y,
+            shearFactor.x, 1
+        );
+
         vec2 relativePosition = position - midpointLoc;
-        vec2 transformedLocation = rotationMatrix * scalingMatrix * relativePosition;
+        vec2 transformedLocation = rotationMatrix * scalingMatrix * shearMatrix * relativePosition;
         vec2 finalPosition = transformedLocation + midpointLoc + translation;
 
         gl_Position = vec4(finalPosition, 0, 1);
