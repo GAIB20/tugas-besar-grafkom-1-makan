@@ -9,8 +9,9 @@ canvas.width = 500
 // Global Vars
 var scale = 1
 var rotation = 0
-var animationSpeed = 1
 var translation=[0,0]
+var shear = [0,0]
+var animationSpeed = 1
 var animate = false
 var isDown = false
 var isMove = false

@@ -26,6 +26,7 @@ function render() {
     var scaleLocation = gl.getUniformLocation(program, "scaleFactor")
     var rotationLocation = gl.getUniformLocation(program, "rotationAngle")
     var translationLocation = gl.getUniformLocation(program, "translation")
+    var shearLocation = gl.getUniformLocation(program, "shearFactor")
     var midPointLocation = gl.getUniformLocation(program, "midpointLoc")
 
     // Bind scaling factor to variable scale
@@ -33,6 +34,9 @@ function render() {
 
     // Bind rotation factor to variable scale
     gl.uniform1f(rotationLocation, rotation)
+
+    // Bind Shear
+    gl.uniform2fv(shearLocation, shear)
 
     // Bind Translation
     gl.uniform2fv(translationLocation, translation)
@@ -66,6 +70,18 @@ document.getElementById("y-translate").oninput = () => {
 document.getElementById("x-translate").oninput = () => {
     const scaleFactor = parseFloat(document.getElementById("x-translate").value)
     translation[0] = scaleFactor
+    render()
+}
+
+document.getElementById("x-shear").oninput = () => {
+    const scaleFactor = parseFloat(document.getElementById("x-shear").value)
+    shear[0] = scaleFactor
+    render()
+}
+
+document.getElementById("y-shear").oninput = () => {
+    const scaleFactor = parseFloat(document.getElementById("y-shear").value)
+    shear[1] = scaleFactor
     render()
 }
 
