@@ -1,5 +1,5 @@
 const main = () => {
-  let obj = new Square(gl)
+  let obj = new Rectangle(gl)
   obj.init()
   // let lines = []
   // lines.push(obj)
