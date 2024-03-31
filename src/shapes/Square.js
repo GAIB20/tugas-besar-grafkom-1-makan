@@ -76,6 +76,7 @@ class Square extends Shape {
             { x: this.vertices[0], y: this.vertices[1] },
             { x: this.vertices[4], y: this.vertices[5] }
           )
+          this.verticesListener()
           this.render()
         }
       },

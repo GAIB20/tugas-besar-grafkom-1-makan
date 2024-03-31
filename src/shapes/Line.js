@@ -48,7 +48,7 @@ class Line extends Shape {
             this.params.initPoint,
             this.params.endPoint
           )
-
+          this.verticesListener()
           this.render()
         }
       },

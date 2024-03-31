@@ -1,59 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
     <title>Tugas Besar WEB-GL</title>
-</head>
-<body onload="main()">
-    <div style="padding: 20px;">
-        <h1>Tugas Besar 1 Grafika Komputer</h1>
-        <div style="margin: 0 auto;">
-            <canvas id="glCanvas" style="border: solid #444; "></canvas>
-            <div>
-                <label>X Position</label>
-                <input type="range" min="-1" max="1" step="0.01" value="0" id="x-translate">
-            </div>
-            <div>
-                <label>Y Position</label>
-                <input type="range" min="-1" max="1" step="0.01" value="0" id="y-translate">
-            </div>
-            <div>
-                <label>Scaling</label>
-                <input type="range" min="0" max="2" step="0.01" value="1" id="scaling">
-            </div>
-            <div>
-                <label>Rotation Angle</label>
-                <input type="range" min="0" max="360" step="0.01" value="0" id="rotation">
-            </div>
-            <div>
-                <label>X Shear</label>
-                <input type="range" min="-1" max="1" step="0.01" value="0" id="x-shear">
-            </div>
-            <div>
-                <label>Y Shear</label>
-                <input type="range" min="-1" max="1" step="0.01" value="0" id="y-shear">
-            </div>
-            <div>
-                <label>Transform X</label>
-                <input type="range" min="0" max="1" step="0.01" value="1" id="x-transform">
-            </div>
-            <div>
-                <label>Transform Y</label>
-                <input type="range" min="0" max="1" step="0.01" value="1" id="y-transform">
-            </div>
-            <div>
-                <button id="animate">Animate</button>
-            </div>
+  </head>
+  <body onload="main()">
+    <div style="padding: 20px">
+      <h1>Tugas Besar 1 Grafika Komputer</h1>
+      <div style="margin: 0 auto">
+        <div class="canvas-container">
+          <canvas id="glCanvas" style="border: solid #444"></canvas>
         </div>
+        <div>
+          <label>X Position</label>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            value="0"
+            id="x-translate"
+          />
+        </div>
+        <div>
+          <label>Y Position</label>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            value="0"
+            id="y-translate"
+          />
+        </div>
+        <div>
+          <label>Scaling</label>
+          <input
+            type="range"
+            min="0"
+            max="2"
+            step="0.01"
+            value="1"
+            id="scaling"
+          />
+        </div>
+        <div>
+          <label>Rotation Angle</label>
+          <input
+            type="range"
+            min="0"
+            max="360"
+            step="0.01"
+            value="0"
+            id="rotation"
+          />
+        </div>
+        <div>
+          <label>X Shear</label>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            value="0"
+            id="x-shear"
+          />
+        </div>
+        <div>
+          <label>Y Shear</label>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            value="0"
+            id="y-shear"
+          />
+        </div>
+        <div>
+          <label>Transform X</label>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+            id="x-transform"
+          />
+        </div>
+        <div>
+          <label>Transform Y</label>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+            id="y-transform"
+          />
+        </div>
+        <div>
+          <button id="animate">Animate</button>
+        </div>
+      </div>
     </div>
-</body>
-<script src="./utils/shaders.js"></script>
-<script src="./utils/webgl.js"></script>
-<script src="./geometry/utils.js"></script>
-<script src="./geometry/Shape.js"></script>
-<script src="./geometry/Line.js"></script>
-<script src="./geometry/Rectangle.js"></script>
-<script src="./geometry/Square.js"></script>
-<script src="app.js"></script>
+  </body>
+  <script src="./utils/shaders.js"></script>
+  <script src="./utils/webgl.js"></script>
+  <script src="./shapes/utils.js"></script>
+  <script src="./shapes/Shape.js"></script>
+  <script src="./shapes/Line.js"></script>
+  <script src="./shapes/Rectangle.js"></script>
+  <script src="./shapes/Square.js"></script>
+  <script src="./shapes/Polygon.js"></script>
+  <script src="app.js"></script>
 </html>

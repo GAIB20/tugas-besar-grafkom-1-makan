@@ -41,6 +41,28 @@ class Shape {
     this.handleInput("y-shear", (value) => (this.params.shear[1] = value))
   }
 
+  verticesListener() {
+    console.log(this.vertices)
+    this.resetVerticesListener()
+    const container = document.querySelector(".canvas-container")
+    const canvas = document.getElementById("glCanvas")
+    for (let i = 0; i < this.vertices.length; i += 2) {
+      let element = document.createElement("div")
+      element.classList.add("point")
+      element.setAttribute("id", `point-${i / 2}`);
+      element.style.position = "absolute"
+      let pos = getRealPosition(canvas, this.vertices[i], this.vertices[i + 1])
+      element.style.left = pos.realX + "px"
+      element.style.top = pos.realY + "px"
+      container.appendChild(element)
+    }
+  }
+
+  resetVerticesListener() {
+    const points = document.querySelectorAll(".point")
+    points.forEach((point) => point.remove())
+  }
+
   animateListener() {
     document.getElementById("animate").onclick = () => {
       this.animate = !this.animate
@@ -114,5 +136,6 @@ class Shape {
     gl.enableVertexAttribArray(positionAttributeLocation)
     gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0)
     gl.drawArrays(this.type, 0, this.vertices.length / 2)
+    this.verticesListener()
   }
 }
