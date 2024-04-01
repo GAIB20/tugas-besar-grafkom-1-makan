@@ -7,6 +7,7 @@ class Polygon extends Shape {
     const canvas = document.getElementById("glCanvas")
     canvas.addEventListener("click", (event) => {
       let pos = getMousePosition(canvas, event)
+      this.isDone = true
       this.vertices.push(pos.x)
       this.vertices.push(pos.y)
       this.render()

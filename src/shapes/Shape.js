@@ -49,6 +49,7 @@ class Shape {
       this.params.g = parseInt(value.substr(3,2), 16)/255
       this.params.b = parseInt(value.substr(5,2), 16)/255
     })
+    this.handleInput("vertexcolor", () => {true})
   }
 
   verticesListener(verticePos) {
@@ -61,6 +62,7 @@ class Shape {
       element.classList.add("point")
       element.setAttribute("id", `point-${i / 2}`);
       element.style.position = "absolute"
+      element.style.backgroundColor = document.getElementById("vertexcolor").value
       let pos = getRealPosition(canvas, verticePos[i], verticePos[i + 1])
       element.style.left = pos.realX + "px"
       element.style.top = pos.realY + "px"
@@ -158,6 +160,8 @@ class Shape {
       gl.STATIC_DRAW
     )
     gl.drawArrays(this.type, 0, this.vertices.length / 2)
-    this.verticesListener(relativePosition.slice())
+    if(this.isDone){
+      this.verticesListener(relativePosition.slice())
+    }
   }
 }
