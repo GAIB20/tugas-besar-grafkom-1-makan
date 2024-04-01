@@ -33,7 +33,7 @@ class Shape {
     this.handleInput("scaling", (value) => (this.params.scale = value))
     this.handleInput("x-transform", (value) => (this.params.xTransform = value))
     this.handleInput("y-transform", (value) => (this.params.yTransform = value))
-    this.handleInput("rotation", (value) => (this.params.rotation = value))
+    this.handleInput("rotation", (value) => (this.params.rotation = parseFloat(value)))
     this.handleInput(
       "y-translate",
       (value) => (this.params.translation[1] = value)
@@ -84,6 +84,7 @@ class Shape {
 
   animateCanvas() {
     this.params.rotation += 0.3
+    console.log(this.params.rotation)
     this.render()
     if (this.animate) {
       setTimeout(() => this.animateCanvas(), 1000 / 60)
@@ -113,44 +114,49 @@ class Shape {
   }
 
   render() {
+    // Transformation
+    var relativePosition = []
+    for(let i = 0; i < this.vertices.length; i += 2){
+      // Get Relative Position
+      relativePosition[i] = this.vertices[i] - this.params.midPoint[0]
+      relativePosition[i+1] = this.vertices[i+1] - this.params.midPoint[1]
+
+      // Rotate
+      var degree = this.params.rotation * (Math.PI/180)
+      var rotatedX= relativePosition[i] * Math.cos(degree) - relativePosition[i+1] * Math.sin(degree)
+      var rotatedY = relativePosition[i] * Math.sin(degree) + relativePosition[i+1] * Math.cos(degree)
+      relativePosition[i] = rotatedX
+      relativePosition[i+1] = rotatedY
+      // Scale
+      relativePosition[i] *= this.params.scale
+      relativePosition[i+1] *= this.params.scale
+      
+      // Transform on X and Y
+      relativePosition[i]*=this.params.xTransform
+      relativePosition[i+1]*=this.params.yTransform
+
+      // Shearing
+      relativePosition[i] = relativePosition[i] + relativePosition[i+1] * this.params.shear[1]
+      relativePosition[i+1] = relativePosition[i+1] + relativePosition[i] * this.params.shear[0]
+
+      relativePosition[i] += this.params.midPoint[0] + parseFloat(this.params.translation[0])
+      relativePosition[i+1] += this.params.midPoint[1] + parseFloat(this.params.translation[1])
+    }
+
     var vertexBuffer = gl.createBuffer()
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array(this.vertices),
-      gl.STATIC_DRAW
-    )
 
-    // Get Position and Draw
-    var scaleLocation = gl.getUniformLocation(program, "scaleFactor")
-    var xTransformLocation = gl.getUniformLocation(program, "transformX")
-    var yTransformLocation = gl.getUniformLocation(program, "transformY")
-    var rotationLocation = gl.getUniformLocation(program, "rotationAngle")
-    var translationLocation = gl.getUniformLocation(program, "translation")
-    var shearLocation = gl.getUniformLocation(program, "shearFactor")
-    var midPointLocation = gl.getUniformLocation(program, "midpointLoc")
     var colorLocation = gl.getUniformLocation(program, 'fColor')
-
-    // Bind scaling factor to variable scale
-    gl.uniform1f(scaleLocation, this.params.scale)
-    gl.uniform1f(xTransformLocation, this.params.xTransform)
-    gl.uniform1f(yTransformLocation, this.params.yTransform)
-
-    // Bind rotation factor to variable scale
-    gl.uniform1f(rotationLocation, this.params.rotation)
-
-    // Bind shear
-    gl.uniform2fv(shearLocation, this.params.shear)
-
-    // Bind Translation
-    gl.uniform2fv(translationLocation, this.params.translation)
-    gl.uniform2fv(midPointLocation, this.params.midPoint)
-
     gl.uniform3f(colorLocation, this.params.r, this.params.g, this.params.b)
-
+    
     var positionAttributeLocation = gl.getAttribLocation(program, "position")
     gl.enableVertexAttribArray(positionAttributeLocation)
     gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0)
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array(relativePosition),
+      gl.STATIC_DRAW
+    )
     gl.drawArrays(this.type, 0, this.vertices.length / 2)
     this.verticesListener()
   }
