@@ -57,7 +57,7 @@ class Rectangle extends Shape {
             this.params.initPoint,
             this.params.endPoint
           )
-          this.verticesListener()
+          // this.verticesListener()
           this.render()
         }
       },

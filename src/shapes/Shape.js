@@ -51,17 +51,17 @@ class Shape {
     })
   }
 
-  verticesListener() {
-    console.log(this.vertices)
+  verticesListener(verticePos) {
+    console.log(verticePos)
     this.resetVerticesListener()
     const container = document.querySelector(".canvas-container")
     const canvas = document.getElementById("glCanvas")
-    for (let i = 0; i < this.vertices.length; i += 2) {
+    for (let i = 0; i < verticePos.length; i += 2) {
       let element = document.createElement("div")
       element.classList.add("point")
       element.setAttribute("id", `point-${i / 2}`);
       element.style.position = "absolute"
-      let pos = getRealPosition(canvas, this.vertices[i], this.vertices[i + 1])
+      let pos = getRealPosition(canvas, verticePos[i], verticePos[i + 1])
       element.style.left = pos.realX + "px"
       element.style.top = pos.realY + "px"
       container.appendChild(element)
@@ -158,6 +158,6 @@ class Shape {
       gl.STATIC_DRAW
     )
     gl.drawArrays(this.type, 0, this.vertices.length / 2)
-    this.verticesListener()
+    this.verticesListener(relativePosition.slice())
   }
 }
