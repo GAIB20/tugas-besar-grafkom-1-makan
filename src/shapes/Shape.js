@@ -18,7 +18,12 @@ class Shape {
 
   handleInput(id, callback) {
     document.getElementById(id).oninput = () => {
-      const value = parseFloat(document.getElementById(id).value)
+      var value = NaN
+      if(typeof document.getElementById(id).value != 'string'){
+        value = parseFloat(document.getElementById(id).value)
+      }else{
+        value = document.getElementById(id).value
+      }
       callback(value)
       this.render()
     }
@@ -39,6 +44,11 @@ class Shape {
     )
     this.handleInput("x-shear", (value) => (this.params.shear[0] = value))
     this.handleInput("y-shear", (value) => (this.params.shear[1] = value))
+    this.handleInput("objectcolor", (value) => {
+      this.params.r = parseInt(value.substr(1,2), 16)/255
+      this.params.g = parseInt(value.substr(3,2), 16)/255
+      this.params.b = parseInt(value.substr(5,2), 16)/255
+    })
   }
 
   verticesListener() {
@@ -95,7 +105,10 @@ class Shape {
       animationSpeed: 1,
       initPoint: [0, 0],
       endPoint: [0, 0],
-      midPoint: [0, 0]
+      midPoint: [0, 0],
+      r: 0,
+      g: 0,
+      b: 1  
     }
   }
 
@@ -116,6 +129,7 @@ class Shape {
     var translationLocation = gl.getUniformLocation(program, "translation")
     var shearLocation = gl.getUniformLocation(program, "shearFactor")
     var midPointLocation = gl.getUniformLocation(program, "midpointLoc")
+    var colorLocation = gl.getUniformLocation(program, 'fColor')
 
     // Bind scaling factor to variable scale
     gl.uniform1f(scaleLocation, this.params.scale)
@@ -131,6 +145,8 @@ class Shape {
     // Bind Translation
     gl.uniform2fv(translationLocation, this.params.translation)
     gl.uniform2fv(midPointLocation, this.params.midPoint)
+
+    gl.uniform3f(colorLocation, this.params.r, this.params.g, this.params.b)
 
     var positionAttributeLocation = gl.getAttribLocation(program, "position")
     gl.enableVertexAttribArray(positionAttributeLocation)
