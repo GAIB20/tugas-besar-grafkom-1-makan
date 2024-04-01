@@ -15,7 +15,7 @@ class Polygon extends Shape {
 
   render() {
     this.vertices = convexHull(this.vertices)
-    this.verticesListener()
+    // this.verticesListener()
     super.render()
   }
 }
