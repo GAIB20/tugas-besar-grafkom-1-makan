@@ -13,7 +13,7 @@
         <div class="canvas-container">
           <canvas id="glCanvas" style="border: solid #444"></canvas>
         </div>
-        <div>
+        <div style="float: left;">
           <label>X Position</label>
           <input
             type="range"
@@ -57,7 +57,7 @@
             id="rotation"
           />
         </div>
-        <div>
+        <div style="float: left;">
           <label>X Shear</label>
           <input
             type="range"
@@ -79,7 +79,7 @@
             id="y-shear"
           />
         </div>
-        <div>
+        <div style="float: left;">
           <label>Transform X</label>
           <input
             type="range"
@@ -101,9 +101,13 @@
             id="y-transform"
           />
         </div>
-        <div>
+        <div style="float: left;">
             <label>Object Color Picker</label>
             <input type="color" id="objectcolor" value="#1e00ff">
+        </div>
+        <div>
+          <label>Vertex Color Picker</label>
+          <input type="color" id="vertexcolor" value="#FF0000">
         </div>
         <div>
           <button id="animate">Animate</button>
