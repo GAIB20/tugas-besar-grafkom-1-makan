@@ -27,7 +27,7 @@ function spin(ver, p, q, r) {
 }
 
 function convexHull(vertices) {
-  n = vertices.length / 2
+  n = vertices.length / 5
   if (n < 3) {
     console.log("Convex hull requires at least 3 vertices")
     return vertices
@@ -36,7 +36,7 @@ function convexHull(vertices) {
   let res = []
 
   let leftmostidx = 0
-  for (let i = 2; i < vertices.length; i += 2) {
+  for (let i = 5; i < vertices.length; i += 5) {
     if (vertices[i] < vertices[leftmostidx]) {
       leftmostidx = i
     }
@@ -45,11 +45,11 @@ function convexHull(vertices) {
   let p = leftmostidx
 
   do {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 5; i++) {
       res.push(vertices[p + i])
     }
-    let q = ((p / 2 + 1) % n) * 2
-    for (let i = 0; i < vertices.length; i += 2) {
+    let q = ((p / 5 + 1) % n) * 5
+    for (let i = 0; i < vertices.length; i += 5) {
       if (spin(vertices, p, i, q) == 2) {
         q = i
       }

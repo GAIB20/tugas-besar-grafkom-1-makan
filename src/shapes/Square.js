@@ -30,12 +30,27 @@ class Square extends Shape {
 
           this.vertices[0] = this.params.initPoint.x
           this.vertices[1] = this.params.initPoint.y
-          this.vertices[2] = this.params.initPoint.x + signX * minDim
-          this.vertices[3] = this.params.initPoint.y
-          this.vertices[4] = this.params.initPoint.x + signX * minDim
-          this.vertices[5] = this.params.initPoint.y + signY * minDim
-          this.vertices[6] = this.params.initPoint.x
-          this.vertices[7] = this.params.initPoint.y + signY * minDim
+          this.vertices[2] = this.params.r
+          this.vertices[3] = this.params.g
+          this.vertices[4] = this.params.b
+
+          this.vertices[5] = this.params.initPoint.x + signX * minDim
+          this.vertices[6] = this.params.initPoint.y
+          this.vertices[7] = this.params.r
+          this.vertices[8] = this.params.g
+          this.vertices[9] = this.params.b
+
+          this.vertices[10] = this.params.initPoint.x + signX * minDim
+          this.vertices[11] = this.params.initPoint.y + signY * minDim
+          this.vertices[12] = this.params.r
+          this.vertices[13] = this.params.g
+          this.vertices[14] = this.params.b
+
+          this.vertices[15] = this.params.initPoint.x
+          this.vertices[16] = this.params.initPoint.y + signY * minDim
+          this.vertices[17] = this.params.r
+          this.vertices[18] = this.params.g
+          this.vertices[19] = this.params.b
 
           this.render()
         }
@@ -65,16 +80,31 @@ class Square extends Shape {
 
           this.vertices[0] = this.params.initPoint.x
           this.vertices[1] = this.params.initPoint.y
-          this.vertices[2] = this.params.initPoint.x + signX * minDim
-          this.vertices[3] = this.params.initPoint.y
-          this.vertices[4] = this.params.initPoint.x + signX * minDim
-          this.vertices[5] = this.params.initPoint.y + signY * minDim
-          this.vertices[6] = this.params.initPoint.x
-          this.vertices[7] = this.params.initPoint.y + signY * minDim
+          this.vertices[2] = this.params.r
+          this.vertices[3] = this.params.g
+          this.vertices[4] = this.params.b
+
+          this.vertices[5] = this.params.initPoint.x + signX * minDim
+          this.vertices[6] = this.params.initPoint.y
+          this.vertices[7] = this.params.r
+          this.vertices[8] = this.params.g
+          this.vertices[9] = this.params.b
+
+          this.vertices[10] = this.params.initPoint.x + signX * minDim
+          this.vertices[11] = this.params.initPoint.y + signY * minDim
+          this.vertices[12] = this.params.r
+          this.vertices[13] = this.params.g
+          this.vertices[14] = this.params.b
+
+          this.vertices[15] = this.params.initPoint.x
+          this.vertices[16] = this.params.initPoint.y + signY * minDim
+          this.vertices[17] = this.params.r
+          this.vertices[18] = this.params.g
+          this.vertices[19] = this.params.b
 
           this.params.midPoint = findMidpoint(
             { x: this.vertices[0], y: this.vertices[1] },
-            { x: this.vertices[4], y: this.vertices[5] }
+            { x: this.vertices[10], y: this.vertices[11] }
           )
           // this.verticesListener()
           this.render()
