@@ -10,6 +10,9 @@ class Polygon extends Shape {
       this.isDone = true
       this.vertices.push(pos.x)
       this.vertices.push(pos.y)
+      this.vertices.push(this.params.r)
+      this.vertices.push(this.params.g)
+      this.vertices.push(this.params.b)
       this.render()
     })
   }
