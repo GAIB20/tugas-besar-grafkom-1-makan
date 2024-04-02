@@ -105,6 +105,22 @@ class Shape {
       })
 
       container.appendChild(element)
+
+      element.addEventListener('drag', (event) => {
+        var pos = getMousePosition(canvas, event)
+        if (pos.x > 0 && pos.y > 0) {
+          this.vertices[i] = pos.x
+          this.vertices[i+1] = pos.y
+          this.render()
+        }
+      }, false)
+
+      element.addEventListener('dragend', (event) => {
+        var pos = getMousePosition(canvas, event)
+        this.vertices[i] = pos.x
+        this.vertices[i+1] = pos.y
+        this.render()
+      }, false)
     }
   }
 
