@@ -1,6 +1,7 @@
 class Shape {
-  constructor(shapeID, gl, type, vertices) {
+  constructor(shapeID, shapeName, gl, type, vertices) {
     this.shapeID = shapeID
+    this.shapeName = shapeName
     this.gl = gl
     this.type = type
     this.vertices = vertices
@@ -198,6 +199,47 @@ class Shape {
     this.render()
     if (this.animate) {
       setTimeout(() => this.animateCanvas(), 1000 / 60)
+    }
+  }
+
+  createShapeEditor() {
+    let shapeSettingDiv = document.querySelector(".shape-setting")
+    let shapeInput = document.createElement("input")
+    shapeInput.setAttribute("type", "checkbox")
+    shapeInput.setAttribute("id", this.shapeID)
+    let shapeLabel = document.createElement("label")
+    shapeLabel.setAttribute("for", this.shapeID)
+    // shapeLabel.textContent = this.shapeID + 1 + ". " + this.shapeName
+    shapeLabel.textContent = this.shapeName + ", ID: " + this.shapeID
+    shapeInput.addEventListener("change", () => {
+      let pointCheckboxes = document.querySelectorAll(
+        `.shape-point-setting input[id^='${this.shapeID}-']`
+      )
+      pointCheckboxes.forEach((checkbox) => {
+        checkbox.checked = shapeInput.checked
+      })
+    })
+    shapeSettingDiv.appendChild(shapeInput)
+    shapeSettingDiv.appendChild(shapeLabel)
+  }
+
+  createPointEditor() {
+    let shapeSettingDiv = document.querySelector(".shape-setting")
+    for (let i = 0; i < this.vertices.length; i += 5) {
+      let vertex = this.vertices[i]
+      let vertexDiv = document.createElement("div")
+      vertexDiv.setAttribute("class", "shape-point-setting")
+
+      let vertexInput = document.createElement("input")
+      vertexInput.setAttribute("type", "checkbox")
+      vertexInput.setAttribute("id", this.shapeID + "-" + i / 5)
+      let vertexLabel = document.createElement("label")
+      vertexLabel.setAttribute("for", this.shapeID + "-" + i / 5)
+      vertexLabel.textContent = `Point ${i / 5 + 1}`
+
+      vertexDiv.appendChild(vertexInput)
+      vertexDiv.appendChild(vertexLabel)
+      shapeSettingDiv.appendChild(vertexDiv)
     }
   }
 

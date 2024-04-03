@@ -1,6 +1,6 @@
 class Line extends Shape {
   constructor(shapeID, gl) {
-    super(shapeID, gl, gl.LINE_STRIP, [0, 0, 0, 0])
+    super(shapeID, "Line", gl, gl.LINE_STRIP, [0, 0, 0, 0])
   }
 
   initDraw(canvas, event) {
@@ -51,6 +51,8 @@ class Line extends Shape {
         this.params.endPoint
       )
       this.render()
+      this.createShapeEditor()
+      this.createPointEditor()
     }
   }
 }

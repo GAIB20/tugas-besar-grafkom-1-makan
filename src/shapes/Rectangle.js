@@ -1,6 +1,6 @@
 class Rectangle extends Shape {
   constructor(shapeID, gl) {
-    super(shapeID, gl, gl.TRIANGLE_FAN, [0, 0, 0, 0, 0, 0, 0, 0])
+    super(shapeID, "Rectangle", gl, gl.TRIANGLE_FAN, [0, 0, 0, 0, 0, 0, 0, 0])
   }
 
   initDraw(canvas, event) {
@@ -76,6 +76,8 @@ class Rectangle extends Shape {
         this.params.endPoint
       )
       this.render()
+      this.createShapeEditor()
+      this.createPointEditor()
     }
   }
 }

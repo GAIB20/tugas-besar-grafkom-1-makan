@@ -1,6 +1,6 @@
 class Square extends Shape {
   constructor(shapeID, gl) {
-    super(shapeID, gl, gl.TRIANGLE_FAN, [0, 0, 0, 0, 0, 0, 0, 0])
+    super(shapeID, "Square", gl, gl.TRIANGLE_FAN, [0, 0, 0, 0, 0, 0, 0, 0])
   }
 
   initDraw(canvas, event) {
@@ -89,6 +89,8 @@ class Square extends Shape {
         { x: this.vertices[10], y: this.vertices[11] }
       )
       this.render()
+      this.createShapeEditor()
+      this.createPointEditor()
     }
   }
 }
