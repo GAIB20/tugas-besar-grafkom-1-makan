@@ -1,7 +1,8 @@
 class Polygon extends Shape {
   constructor(shapeID, gl) {
-    super(shapeID, gl, gl.TRIANGLE_FAN, [])
+    super(shapeID, "Polygon", gl, gl.TRIANGLE_FAN, [])
     this.isDone = false
+    this.isShapePointEditorCreated = false
   }
 
   initDraw(canvas, event) {
@@ -25,7 +26,14 @@ class Polygon extends Shape {
   }
 
   render() {
-    this.vertices = convexHull(this.vertices)
+    if (!this.isDone) {
+      this.vertices = convexHull(this.vertices)
+    }
+    if (this.isDone && !this.isShapePointEditorCreated) {
+      this.createShapeEditor()
+      this.createPointEditor()
+      this.isShapePointEditorCreated = true
+    }
     super.render()
   }
 }

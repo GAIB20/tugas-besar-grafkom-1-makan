@@ -1,13 +1,12 @@
 class Square extends Shape {
   constructor(shapeID, gl) {
-    super(shapeID, gl, gl.TRIANGLE_FAN, [0, 0, 0, 0, 0, 0, 0, 0])
+    super(shapeID, "Square", gl, gl.TRIANGLE_FAN, [0, 0, 0, 0, 0, 0, 0, 0])
   }
 
   initDraw(canvas, event) {
     this.isDown = true
     if (!this.isDone) {
       this.params.initPoint = getMousePosition(canvas, event)
-      console.log("INIT", this.params.initPoint)
     }
   }
 
@@ -52,7 +51,6 @@ class Square extends Shape {
     if (!this.isDone) {
       this.isDone = true
       this.params.endPoint = getMousePosition(canvas, event)
-      console.log("END", this.params.endPoint)
 
       const width = Math.abs(this.params.endPoint.x - this.params.initPoint.x)
       const height = Math.abs(this.params.endPoint.y - this.params.initPoint.y)
@@ -89,6 +87,8 @@ class Square extends Shape {
         { x: this.vertices[10], y: this.vertices[11] }
       )
       this.render()
+      this.createShapeEditor()
+      this.createPointEditor()
     }
   }
 }

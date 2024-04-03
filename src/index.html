@@ -242,7 +242,7 @@
           <button type="button" class="btn btn-info" id="animate">
             Animate
           </button>
-          <button type="button" class="btn btn-danger" id="clear">Clear</button>
+          <button type="button" class="btn btn-danger" id="delete">Delete</button>
         </div>
         <div class="developer-name">
           <p>Creator:</p>
@@ -262,78 +262,13 @@
         <div class="sidebar-title">
           <a>Shape and Point Menu</a>
         </div>
-        <div class="transform-menu">
-          <label>Canvas Width</label>
-          <input
-            type="range"
-            min="0"
-            max="1000"
-            step="1"
-            value="500"
-            id="canvas-width"
-          />
+        <div class="shape-setting">
         </div>
-        <div class="transform-menu">
-          <label>Canvas Height</label>
-          <input
-            type="range"
-            min="0"
-            max="1000"
-            step="1"
-            value="500"
-            id="canvas-height"
-          />
-        </div>
-        <div class="transform-menu">
-          <label>Canvas Color Picker</label>
-          <input type="color" id="canvascolor" value="#ffffff" />
-        </div>
-        <div class="transform-menu">
-          <label>Canvas Border Color Picker</label>
-          <input type="color" id="canvasbordercolor" value="#000000" />
-        </div>
-        <div class="transform-menu">
-          <label>Canvas Border Width</label>
-          <input
-            type="range"
-            min="0"
-            max="10"
-            step="1"
-            value="1"
-            id="canvasborderwidth"
-          />
-        </div>
-        <div class="transform-menu">
-          <label>Canvas Border Radius</label>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            step="1"
-            value="0"
-            id="canvasborderradius"
-          />
-        </div>
-        <div class="transform-menu">
-          <label>Canvas Border Style</label>
-          <select id="canvasborderstyle">
-            <option value="solid">Solid</option>
-            <option value="dotted">Dotted</option>
-            <option value="dashed">Dashed</option>
-            <option value="double">Double</option>
-            <option value="groove">Groove</option>
-            <option value="ridge">Ridge</option>
-            <option value="inset">Inset</option>
-            <option value="outset">Outset</option>
-            <option value="none">None</option>
-            <option value="hidden">Hidden</option>
-          </select>
-        </div>
-      </div>
     </div>
   </body>
   <script src="./utils/shaders.js"></script>
   <script src="./utils/webgl.js"></script>
+  <script src="./utils/listener.js"></script>
   <script src="./shapes/utils.js"></script>
   <script src="./shapes/Shape.js"></script>
   <script src="./shapes/Line.js"></script>

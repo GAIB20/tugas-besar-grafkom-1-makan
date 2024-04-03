@@ -1,35 +1,57 @@
 class Shape {
-  constructor(shapeID, gl, type, vertices) {
+  constructor(
+    shapeID,
+    shapeName,
+    gl,
+    type,
+    vertices,
+    _scale = 1,
+    _xTransform = 1,
+    _yTransform = 1,
+    _rotation = 0,
+    _translation = [0, 0],
+    _shear = [0, 0],
+    _initPoint = [0, 0],
+    _endPoint = [0, 0],
+    _midPoint = [0, 0],
+    _r = parseInt(
+      document.querySelector("#objectcolor").value.substring(1, 3),
+      16
+    ) / 255,
+    _g = parseInt(
+      document.querySelector("#objectcolor").value.substring(3, 5),
+      16
+    ) / 255,
+    _b = parseInt(
+      document.querySelector("#objectcolor").value.substring(5, 7),
+      16
+    ) / 255
+  ) {
     this.shapeID = shapeID
+    this.shapeName = shapeName
     this.gl = gl
     this.type = type
     this.vertices = vertices
-    this.init()
-  }
-
-  init() {
     this.animate = false
     this.isDown = false
     this.isMove = false
     this.isDone = false
     this.params = {
-      scale: 1,
-      xTransform: 1,
-      yTransform: 1,
-      rotation: 0,
-      translation: [0, 0],
-      shear: [0, 0],
+      scale: _scale,
+      xTransform: _xTransform,
+      yTransform: _yTransform,
+      rotation: _rotation,
+      translation: _translation,
+      shear: _shear,
       animationSpeed: 1,
-      initPoint: [0, 0],
-      endPoint: [0, 0],
-      midPoint: [0, 0],
-      r: 0,
-      g: 0,
-      b: 1
+      initPoint: _initPoint,
+      endPoint: _endPoint,
+      midPoint: _midPoint,
+      r: _r,
+      g: _g,
+      b: _b
     }
     this.canvasListener()
-    this.paramsListener()
-    this.animateListener()
   }
 
   initDraw(canvas, event) {
@@ -72,132 +94,50 @@ class Shape {
     )
   }
 
-  handleInput(id, callback) {
-    document.getElementById(id).oninput = () => {
-      var value = NaN
-      if (typeof document.getElementById(id).value != "string") {
-        value = parseFloat(document.getElementById(id).value)
-      } else {
-        value = document.getElementById(id).value
-      }
-      callback(value)
-      this.render()
-    }
-  }
-  paramsListener() {
-    this.handleInput("scaling", (value) => (this.params.scale = value))
-    this.handleInput("x-transform", (value) => (this.params.xTransform = value))
-    this.handleInput("y-transform", (value) => (this.params.yTransform = value))
-    this.handleInput(
-      "rotation",
-      (value) => (this.params.rotation = parseFloat(value))
-    )
-    this.handleInput(
-      "y-translate",
-      (value) => (this.params.translation[1] = value)
-    )
-    this.handleInput(
-      "x-translate",
-      (value) => (this.params.translation[0] = value)
-    )
-    this.handleInput("x-shear", (value) => (this.params.shear[0] = value))
-    this.handleInput("y-shear", (value) => (this.params.shear[1] = value))
-    this.handleInput("objectcolor", (value) => {
-      var r = parseInt(value.substr(1, 2), 16) / 255
-      var g = parseInt(value.substr(3, 2), 16) / 255
-      var b = parseInt(value.substr(5, 2), 16) / 255
-
-      for (let i = 0; i < this.vertices.length; i += 5) {
-        this.vertices[i + 2] = r
-        this.vertices[i + 3] = g
-        this.vertices[i + 4] = b
-      }
-    })
-  }
-
-  verticesListener(verticePos) {
-    this.resetVerticesListener()
-    const container = document.querySelector(".canvas-container")
-    const canvas = document.getElementById("glCanvas")
-    for (let i = 0; i < verticePos.length; i += 5) {
-      let element = document.createElement("div")
-
-      // === POINT FOR EACH VERTICES ===
-      element.classList.add("point")
-      element.setAttribute("id", this.shapeID)
-      element.style.position = "absolute"
-      let pos = getRealPosition(canvas, verticePos[i], verticePos[i + 1])
-      element.style.left = pos.realX + "px"
-      element.style.top = pos.realY + "px"
-
-      // Add OnClick Listener
-      element.addEventListener("click", () => {
-        let colorPicker = document.createElement("input")
-        colorPicker.setAttribute("type", "color")
-        colorPicker.setAttribute("id", `colorpicker-${i / 5}`)
-        colorPicker.style.cssText = `
-            position: absolute;
-            left: ${pos.realX + 5}px;
-            top: ${pos.realX - 5}px;
-        `
-
-        colorPicker.addEventListener(
-          "input",
-          (ev) => {
-            var r = parseInt(ev.target.value.substr(1, 2), 16) / 255
-            var g = parseInt(ev.target.value.substr(3, 2), 16) / 255
-            var b = parseInt(ev.target.value.substr(5, 2), 16) / 255
-
-            this.vertices[i + 2] = r
-            this.vertices[i + 3] = g
-            this.vertices[i + 4] = b
-
-            console.log("CHANGE VERT", this.vertices)
-
-            this.render()
-          },
-          false
-        )
-
-        colorPicker.addEventListener(
-          "blur",
-          (ev) => {
-            colorPicker.remove()
-          },
-          false
-        )
-
-        container.appendChild(colorPicker)
-        colorPicker.focus()
-      })
-
-      container.appendChild(element)
-    }
-  }
-
-  resetVerticesListener() {
-    const points = document.querySelectorAll(".point")
-    points.forEach((point) => {
-      if (point.id === this.shapeID) {
-        point.remove()
-      }
-    })
-  }
-
-  animateListener() {
-    document.getElementById("animate").onclick = () => {
-      this.animate = !this.animate
-      if (this.animate) {
-        this.animateCanvas()
-      }
-    }
-  }
-
-  animateCanvas() {
+  animateShape() {
     this.params.rotation += 0.3
-    this.render()
     if (this.animate) {
-      setTimeout(() => this.animateCanvas(), 1000 / 60)
+      setTimeout(() => this.animateShape(), 1000 / 60)
+    }
+  }
+
+  createShapeEditor() {
+    let shapeSettingDiv = document.querySelector(".shape-setting")
+    let shapeInput = document.createElement("input")
+    shapeInput.setAttribute("type", "checkbox")
+    shapeInput.setAttribute("id", this.shapeID)
+    let shapeLabel = document.createElement("label")
+    shapeLabel.setAttribute("for", this.shapeID)
+    // shapeLabel.textContent = this.shapeID + 1 + ". " + this.shapeName
+    shapeLabel.textContent = this.shapeName + ", ID: " + this.shapeID
+    shapeInput.addEventListener("change", () => {
+      let pointCheckboxes = document.querySelectorAll(
+        `.shape-point-setting input[id^='${this.shapeID}-']`
+      )
+      pointCheckboxes.forEach((checkbox) => {
+        checkbox.checked = shapeInput.checked
+      })
+    })
+    shapeSettingDiv.appendChild(shapeInput)
+    shapeSettingDiv.appendChild(shapeLabel)
+  }
+
+  createPointEditor() {
+    let shapeSettingDiv = document.querySelector(".shape-setting")
+    for (let i = 0; i < this.vertices.length; i += 5) {
+      let vertexDiv = document.createElement("div")
+      vertexDiv.setAttribute("class", "shape-point-setting")
+
+      let vertexInput = document.createElement("input")
+      vertexInput.setAttribute("type", "checkbox")
+      vertexInput.setAttribute("id", this.shapeID + "-" + i / 5)
+      let vertexLabel = document.createElement("label")
+      vertexLabel.setAttribute("for", this.shapeID + "-" + i / 5)
+      vertexLabel.textContent = `Point ${i / 5 + 1}`
+
+      vertexDiv.appendChild(vertexInput)
+      vertexDiv.appendChild(vertexLabel)
+      shapeSettingDiv.appendChild(vertexDiv)
     }
   }
 
@@ -275,8 +215,5 @@ class Shape {
       gl.STATIC_DRAW
     )
     gl.drawArrays(this.type, 0, this.vertices.length / 5)
-    // if(this.isDone){
-    //   this.verticesListener(relativePosition.slice())
-    // }
   }
 }

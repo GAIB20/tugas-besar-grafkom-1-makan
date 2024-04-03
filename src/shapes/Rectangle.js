@@ -1,13 +1,12 @@
 class Rectangle extends Shape {
   constructor(shapeID, gl) {
-    super(shapeID, gl, gl.TRIANGLE_FAN, [0, 0, 0, 0, 0, 0, 0, 0])
+    super(shapeID, "Rectangle", gl, gl.TRIANGLE_FAN, [0, 0, 0, 0, 0, 0, 0, 0])
   }
 
   initDraw(canvas, event) {
     this.isDown = true
     if (!this.isDone) {
       this.params.initPoint = getMousePosition(canvas, event)
-      console.log("INIT", this.params.initPoint)
     }
   }
 
@@ -46,7 +45,6 @@ class Rectangle extends Shape {
     if (!this.isDone) {
       this.isDone = true
       this.params.endPoint = getMousePosition(canvas, event)
-      console.log("END", this.params.endPoint)
       this.vertices[0] = this.params.initPoint.x
       this.vertices[1] = this.params.initPoint.y
       this.vertices[2] = this.params.r
@@ -76,6 +74,8 @@ class Rectangle extends Shape {
         this.params.endPoint
       )
       this.render()
+      this.createShapeEditor()
+      this.createPointEditor()
     }
   }
 }

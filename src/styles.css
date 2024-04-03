@@ -54,6 +54,12 @@ body {
   margin-top: 60px;
 }
 
+.transform-menu {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
 .developer-name {
   margin-top: 30px;
   font-size: 1rem;
@@ -70,6 +76,7 @@ body {
   margin: 0 15px;
 }
 
+/* RIGHT SIDE BAR */
 .sidebar-right {
   position: fixed;
   top: 0;
@@ -82,10 +89,21 @@ body {
   margin-top: 60px;
 }
 
-.transform-menu {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 1rem;
+.shape-setting {
+  padding-left: 10px;
+}
+
+.shape-setting input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.shape-point-setting {
+  padding-left: 20px;
+  margin-right: 10px;
+}
+
+.shape-point-setting input[type="checkbox"] {
+  margin-right: 5px;
 }
 
 /* CANVAS */
