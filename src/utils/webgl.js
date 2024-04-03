@@ -1,8 +1,8 @@
 const canvas = document.getElementById("glCanvas")
 const gl = canvas.getContext("webgl")
 
-canvas.height = 500
-canvas.width = 500
+canvas.width = window.innerWidth - 610
+canvas.height = window.innerHeight - 70
 
 gl.viewport(0, 0, canvas.width, canvas.height)
 gl.clearColor(0.39, 0.39, 0.39, 0)
