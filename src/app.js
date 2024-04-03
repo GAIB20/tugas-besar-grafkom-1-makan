@@ -6,6 +6,10 @@ var navLinks = document.querySelectorAll(".nav-link")
 navLinks.forEach(function (navLink) {
   navLink.addEventListener("click", function (event) {
     event.preventDefault()
+    isDrawingPolygon = false
+    objs.forEach((obj) => {
+      obj.isDone = true
+    })
     navLinks.forEach(function (navLink) {
       navLink.classList.remove("active")
     })
@@ -17,9 +21,6 @@ navLinks.forEach(function (navLink) {
 canvas.addEventListener("click", (event) => {
   let activeNav = document.querySelector(".nav-link.active").id
   if (activeNav == "Polygon" && !isDrawingPolygon) {
-    objs.forEach((obj) => {
-      obj.isDone = true
-    })
     let obj
     obj = new Polygon(objs.length, gl)
     isDrawingPolygon = true
@@ -33,10 +34,6 @@ canvas.addEventListener("click", (event) => {
 canvas.addEventListener("mousedown", (event) => {
   let activeNav = document.querySelector(".nav-link.active").id
   if (activeNav == "Polygon") return
-  isDrawingPolygon = false
-  objs.forEach((obj) => {
-    obj.isDone = true
-  })
   let obj
   switch (activeNav) {
     case "Line":
