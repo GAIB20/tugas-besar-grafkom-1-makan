@@ -7,7 +7,6 @@ class Square extends Shape {
     this.isDown = true
     if (!this.isDone) {
       this.params.initPoint = getMousePosition(canvas, event)
-      console.log("INIT", this.params.initPoint)
     }
   }
 
@@ -52,7 +51,6 @@ class Square extends Shape {
     if (!this.isDone) {
       this.isDone = true
       this.params.endPoint = getMousePosition(canvas, event)
-      console.log("END", this.params.endPoint)
 
       const width = Math.abs(this.params.endPoint.x - this.params.initPoint.x)
       const height = Math.abs(this.params.endPoint.y - this.params.initPoint.y)

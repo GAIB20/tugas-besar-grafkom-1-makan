@@ -7,7 +7,6 @@ class Line extends Shape {
     this.isDown = true
     if (!this.isDone) {
       this.params.initPoint = getMousePosition(canvas, event)
-      console.log("INIT", this.params.initPoint)
     }
   }
 
@@ -33,7 +32,6 @@ class Line extends Shape {
     if (!this.isDone) {
       this.isDone = true
       this.params.endPoint = getMousePosition(canvas, event)
-      console.log("END", this.params.endPoint)
       this.vertices[0] = this.params.initPoint.x
       this.vertices[1] = this.params.initPoint.y
       this.vertices[2] = this.params.r
