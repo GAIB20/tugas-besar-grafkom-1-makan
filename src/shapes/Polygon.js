@@ -1,25 +1,30 @@
 class Polygon extends Shape {
-  constructor(gl) {
-    super(gl, gl.TRIANGLE_FAN, [])
+  constructor(shapeID, gl) {
+    super(shapeID, gl, gl.TRIANGLE_FAN, [])
+    this.isDone = false
   }
 
-  canvasListener() {
-    const canvas = document.getElementById("glCanvas")
-    canvas.addEventListener("click", (event) => {
+  initDraw(canvas, event) {
+    if (!this.isDone) {
       let pos = getMousePosition(canvas, event)
-      this.isDone = true
       this.vertices.push(pos.x)
       this.vertices.push(pos.y)
       this.vertices.push(this.params.r)
       this.vertices.push(this.params.g)
       this.vertices.push(this.params.b)
       this.render()
+    }
+  }
+
+  canvasListener() {
+    const canvas = document.getElementById("glCanvas")
+    canvas.addEventListener("click", (event) => {
+      this.initDraw(canvas, event)
     })
   }
 
   render() {
     this.vertices = convexHull(this.vertices)
-    // this.verticesListener()
     super.render()
   }
 }

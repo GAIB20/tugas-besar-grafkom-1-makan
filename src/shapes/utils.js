@@ -1,3 +1,36 @@
+// ========== Canvas Utils ==========
+function clear() {
+  gl.viewport(0, 0, canvas.width, canvas.height)
+  gl.clearColor(0.39, 0.39, 0.39, 0)
+  gl.clear(gl.COLOR_BUFFER_BIT)
+}
+
+window.requestAnimFrame = (()=> {
+  return(
+    window.requestAnimationFrame       ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame    ||
+    window.oRequestAnimationFrame      ||
+    window.msRequestAnimationFrame     ||
+
+    function(callback) {
+      window.setTimeout(callback, 1000 / 60)
+    }
+  )
+})()
+
+function renderObject(objs) {
+  clear()
+  for (let obj of objs) {
+    obj.render()
+  }
+
+  window.requestAnimFrame(() => {
+    renderObject(objs)
+  })
+}
+
+// ========== Shape Utils ==========
 function getMousePosition(canvas, event) {
   const rect = canvas.getBoundingClientRect()
   const x = (event.clientX - rect.left - canvas.width / 2) / (canvas.width / 2)
