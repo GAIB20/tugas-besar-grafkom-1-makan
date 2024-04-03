@@ -19,11 +19,7 @@ gl.useProgram(program)
 
 var vertexBuffer = gl.createBuffer()
 gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
-gl.bufferData(
-  gl.ARRAY_BUFFER,
-  new Float32Array(this.vertices),
-  gl.STATIC_DRAW
-)
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW)
 
 function createShader(gl, type, source) {
   var shader = gl.createShader(type)
@@ -39,4 +35,35 @@ function createProgram(gl, vertexShader, fragmentShader) {
   gl.attachShader(program, fragmentShader)
   gl.linkProgram(program)
   return program
+}
+
+function clear() {
+  gl.viewport(0, 0, canvas.width, canvas.height)
+  gl.clearColor(0.39, 0.39, 0.39, 0)
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+}
+
+window.requestAnimFrame = (() => {
+  return (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) {
+      window.setTimeout(callback, 1000 / 60)
+    }
+  )
+})()
+
+function renderShapes(shapes) {
+  clear()
+
+  shapes.forEach((shape) => {
+    shape.render()
+  })
+
+  window.requestAnimFrame(() => {
+    renderShapes(shapes)
+  })
 }
