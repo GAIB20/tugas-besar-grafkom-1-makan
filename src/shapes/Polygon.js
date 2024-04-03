@@ -12,6 +12,7 @@ class Polygon extends Shape {
       this.vertices.push(this.params.r)
       this.vertices.push(this.params.g)
       this.vertices.push(this.params.b)
+      this.params.midPoint = findPolygonMidPoint(this.vertices)
       this.render()
     }
   }

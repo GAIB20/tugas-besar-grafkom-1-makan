@@ -2,18 +2,17 @@
 function clear() {
   gl.viewport(0, 0, canvas.width, canvas.height)
   gl.clearColor(0.39, 0.39, 0.39, 0)
-  gl.clear(gl.COLOR_BUFFER_BIT)
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 }
 
-window.requestAnimFrame = (()=> {
-  return(
-    window.requestAnimationFrame       ||
+window.requestAnimFrame = (() => {
+  return (
+    window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame    ||
-    window.oRequestAnimationFrame      ||
-    window.msRequestAnimationFrame     ||
-
-    function(callback) {
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) {
       window.setTimeout(callback, 1000 / 60)
     }
   )
@@ -52,11 +51,21 @@ function findMidpoint(point1, point2) {
   return [midpoint_x, midpoint_y]
 }
 
+function findPolygonMidPoint(vertices) {
+  let sumX = 0
+  let sumY = 0
+  for (let i = 0; i < vertices.length; i += 5) {
+    sumX += vertices[i]
+    sumY += vertices[i + 1]
+  }
+  return [sumX / (vertices.length / 5), sumY / (vertices.length / 5)]
+}
+
 function spin(ver, p, q, r) {
   let val =
     (ver[q + 1] - ver[p + 1]) * (ver[r] - ver[q]) -
     (ver[q] - ver[p]) * (ver[r + 1] - ver[q + 1])
-  return val === 0 ? 0 : (val > 0 ? 1 : 2);
+  return val === 0 ? 0 : val > 0 ? 1 : 2
 }
 
 function convexHull(vertices) {
