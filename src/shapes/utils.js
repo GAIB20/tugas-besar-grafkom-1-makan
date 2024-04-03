@@ -19,17 +19,26 @@ function findMidpoint(point1, point2) {
   return [midpoint_x, midpoint_y]
 }
 
+function findPolygonMidPoint(vertices) {
+  let sumX = 0
+  let sumY = 0
+  for (let i = 0; i < vertices.length; i += 5) {
+    sumX += vertices[i]
+    sumY += vertices[i + 1]
+  }
+  return [sumX / (vertices.length / 5), sumY / (vertices.length / 5)]
+}
+
 function spin(ver, p, q, r) {
   let val =
     (ver[q + 1] - ver[p + 1]) * (ver[r] - ver[q]) -
     (ver[q] - ver[p]) * (ver[r + 1] - ver[q + 1])
-  return val === 0 ? 0 : (val > 0 ? 1 : 2);
+  return val === 0 ? 0 : val > 0 ? 1 : 2
 }
 
 function convexHull(vertices) {
   n = vertices.length / 5
   if (n < 3) {
-    console.log("Convex hull requires at least 3 vertices")
     return vertices
   }
 
@@ -44,7 +53,7 @@ function convexHull(vertices) {
 
   let p = leftmostidx
 
-  do {
+  while (p != leftmostidx || res.length === 0) {
     for (let i = 0; i < 5; i++) {
       res.push(vertices[p + i])
     }
@@ -55,7 +64,7 @@ function convexHull(vertices) {
       }
     }
     p = q
-  } while (p != leftmostidx)
+  }
 
   return res
 }

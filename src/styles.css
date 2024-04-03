@@ -1,3 +1,7 @@
+body {
+  font-family: 'Poppins';
+}
+
 .point {
   width: 8px;
   height: 8px;
@@ -5,6 +9,108 @@
   border-radius: 50%;
 }
 
-.point:hover {
-  cursor: pointer;
+.sidebar-title {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030; /* Adjust as needed to ensure navbar is on top */
+}
+
+.nav-shape-menu,
+.nav-title,
+.nav-help-icon {
+  flex: 1;
+  text-align: center;
+}
+
+.nav-title {
+  font-size: 1.5rem;
+}
+
+.nav-help-icon {
+  text-align: right;
+}
+
+/* SIDE BAR */
+.sidebar-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  margin-top: 60px;
+}
+
+.transform-menu {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+.developer-name {
+  margin-top: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.canvas-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-buttons button {
+  margin: 0 15px;
+}
+
+/* RIGHT SIDE BAR */
+.sidebar-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  margin-top: 60px;
+}
+
+.shape-setting {
+  padding-left: 10px;
+}
+
+.shape-setting input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.shape-point-setting {
+  padding-left: 20px;
+  margin-right: 10px;
+}
+
+.shape-point-setting input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* CANVAS */
+#glCanvas {
+  position: absolute;
+  top: 60px;
+  left: 300px;
+  right: 300px;
+  bottom: 0;
 }

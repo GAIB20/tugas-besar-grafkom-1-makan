@@ -1,25 +1,39 @@
 class Polygon extends Shape {
-  constructor(gl) {
-    super(gl, gl.TRIANGLE_FAN, [])
+  constructor(shapeID, gl) {
+    super(shapeID, "Polygon", gl, gl.TRIANGLE_FAN, [])
+    this.isDone = false
+    this.isShapePointEditorCreated = false
   }
 
-  canvasListener() {
-    const canvas = document.getElementById("glCanvas")
-    canvas.addEventListener("click", (event) => {
+  initDraw(canvas, event) {
+    if (!this.isDone) {
       let pos = getMousePosition(canvas, event)
-      this.isDone = true
       this.vertices.push(pos.x)
       this.vertices.push(pos.y)
       this.vertices.push(this.params.r)
       this.vertices.push(this.params.g)
       this.vertices.push(this.params.b)
+      this.params.midPoint = findPolygonMidPoint(this.vertices)
       this.render()
+    }
+  }
+
+  canvasListener() {
+    const canvas = document.getElementById("glCanvas")
+    canvas.addEventListener("click", (event) => {
+      this.initDraw(canvas, event)
     })
   }
 
   render() {
-    this.vertices = convexHull(this.vertices)
-    // this.verticesListener()
+    if (!this.isDone) {
+      this.vertices = convexHull(this.vertices)
+    }
+    if (this.isDone && !this.isShapePointEditorCreated) {
+      this.createShapeEditor()
+      this.createPointEditor()
+      this.isShapePointEditorCreated = true
+    }
     super.render()
   }
 }
