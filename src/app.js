@@ -17,6 +17,12 @@ navLinks.forEach(function (navLink) {
   })
 })
 
+// Clear Button Listener
+document.querySelector("#clear").addEventListener("click", () => {
+  objs = []
+  renderObject(objs)
+})
+
 // Canvas Listener to Initialize Object
 canvas.addEventListener("click", (event) => {
   let activeNav = document.querySelector(".nav-link.active").id
