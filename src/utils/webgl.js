@@ -56,7 +56,7 @@ window.requestAnimFrame = (() => {
   )
 })()
 
-function renderShapes(shapes) {
+function renderShapes() {
   clear()
 
   shapes.forEach((shape) => {
@@ -64,6 +64,6 @@ function renderShapes(shapes) {
   })
 
   window.requestAnimFrame(() => {
-    renderShapes(shapes)
+    renderShapes()
   })
 }

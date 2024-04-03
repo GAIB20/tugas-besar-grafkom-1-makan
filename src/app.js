@@ -1,3 +1,3 @@
 const main = () => {
-  renderShapes(shapes)
+  renderShapes()
 }

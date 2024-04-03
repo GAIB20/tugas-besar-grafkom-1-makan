@@ -26,12 +26,14 @@ class Polygon extends Shape {
   }
 
   render() {
-    this.vertices = convexHull(this.vertices)
-    super.render()
+    if (!this.isDone) {
+      this.vertices = convexHull(this.vertices)
+    }
     if (this.isDone && !this.isShapePointEditorCreated) {
       this.createShapeEditor()
       this.createPointEditor()
       this.isShapePointEditorCreated = true
     }
+    super.render()
   }
 }
