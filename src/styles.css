@@ -24,21 +24,30 @@ body {
   left: 0;
   right: 0;
   z-index: 1030; /* Adjust as needed to ensure navbar is on top */
+  display: flex;
+}
+.nav-help-icon, .nav-title, .nav-shape-menu {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-shape-menu,
-.nav-title,
+.nav-shape-menu {
+  justify-content: flex-start;
+}
+
 .nav-help-icon {
-  flex: 1;
-  text-align: center;
+  display: flex;
+  text-align: right;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .nav-title {
   font-size: 1.5rem;
-}
-
-.nav-help-icon {
-  text-align: right;
+  text-align: center;
+  justify-content: center;
 }
 
 /* SIDE BAR */
@@ -73,7 +82,7 @@ body {
 }
 
 .canvas-buttons button {
-  margin: 0 15px;
+  margin: 0 10px;
 }
 
 /* RIGHT SIDE BAR */

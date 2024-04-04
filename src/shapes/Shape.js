@@ -54,6 +54,54 @@ class Shape {
     this.canvasListener()
   }
 
+  save() {
+    return {
+      shapeName: this.shapeName,
+      type: this.type,
+      vertices: this.vertices,
+      animate: this.animate,
+      isDown: this.isDown,
+      isMove: this.isMove,
+      isDone: this.isDone,
+      scale: this.params.scale,
+      xTransform: this.params.xTransform,
+      yTransform: this.params.yTransform,
+      rotation: this.params.rotation,
+      translation: this.params.translation,
+      shear: this.params.shear,
+      initPoint: this.params.initPoint,
+      endPoint: this.params.endPoint,
+      midPoint: this.params.midPoint,
+      r: this.params.r,
+      g: this.params.g,
+      b: this.params.b
+    }
+  }
+
+  load(data) {
+    this.shapeName = data.shapeName
+    this.type = data.type
+    this.vertices = data.vertices
+    this.animate = data.animate
+    this.isDown = data.isDown
+    this.isMove = data.isMove
+    this.isDone = data.isDone
+    this.params.scale = data.scale
+    this.params.xTransform = data.xTransform
+    this.params.yTransform = data.yTransform
+    this.params.rotation = data.rotation
+    this.params.translation = data.translation
+    this.params.shear = data.shear
+    this.params.initPoint = data.initPoint
+    this.params.endPoint = data.endPoint
+    this.params.midPoint = data.midPoint
+    this.params.r = data.r
+    this.params.g = data.g
+    this.params.b = data.b
+    this.createShapeEditor()
+    this.createPointEditor()
+  }
+
   initDraw(canvas, event) {
     throw new Error("initDraw method must be implemented")
   }
@@ -102,7 +150,7 @@ class Shape {
   }
 
   createShapeEditor() {
-    let shapeSettingDiv = document.querySelector(".shape-setting")
+        let shapeSettingDiv = document.querySelector(".shape-setting")
     let shapeInput = document.createElement("input")
     shapeInput.setAttribute("type", "checkbox")
     shapeInput.setAttribute("id", this.shapeID)
