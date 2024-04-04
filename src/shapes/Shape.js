@@ -181,6 +181,8 @@ class Shape {
       relativePosition[i + 2] = this.vertices[i + 2]
       relativePosition[i + 3] = this.vertices[i + 3]
       relativePosition[i + 4] = this.vertices[i + 4]
+
+      relativePosition[i] = relativePosition[i]/(canvas.width/canvas.height)
     }
 
     var vertexBuffer = gl.createBuffer()
