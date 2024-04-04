@@ -193,7 +193,6 @@ canvas.addEventListener("mousedown", (event) => {
     case "Polygon":
       break
     default:
-      console.log("Unknown shape selected")
       break
   }
   if (shape) {
@@ -208,7 +207,9 @@ canvas.addEventListener("mousedown", (event) => {
 document.querySelector("#scaling").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
+      shapes[selectedShapes[i]].vertices
+    )
     shapes[selectedShapes[i]].params.scale = value
   }
 })
@@ -217,7 +218,9 @@ document.querySelector("#scaling").addEventListener("input", (event) => {
 document.querySelector("#x-transform").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
+      shapes[selectedShapes[i]].vertices
+    )
     shapes[selectedShapes[i]].params.xTransform = value
   }
 })
@@ -226,7 +229,9 @@ document.querySelector("#x-transform").addEventListener("input", (event) => {
 document.querySelector("#y-transform").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
+      shapes[selectedShapes[i]].vertices
+    )
     shapes[selectedShapes[i]].params.yTransform = value
   }
 })
@@ -235,7 +240,9 @@ document.querySelector("#y-transform").addEventListener("input", (event) => {
 document.querySelector("#rotation").addEventListener("input", (event) => {
   let value = parseFloat(event.target.value)
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
+      shapes[selectedShapes[i]].vertices
+    )
     shapes[selectedShapes[i]].params.rotation = value
   }
 })
@@ -245,7 +252,9 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
   let value = event.target.value
   // for selected shapes
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
+      shapes[selectedShapes[i]].vertices
+    )
     shapes[selectedShapes[i]].params.translation[0] = value
   }
   // for selected point
@@ -267,7 +276,9 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
 document.querySelector("#y-translate").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
+      shapes[selectedShapes[i]].vertices
+    )
     shapes[selectedShapes[i]].params.translation[1] = value
   }
   // for selected point
@@ -289,7 +300,9 @@ document.querySelector("#y-translate").addEventListener("input", (event) => {
 document.querySelector("#x-shear").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
+      shapes[selectedShapes[i]].vertices
+    )
     shapes[selectedShapes[i]].params.shear[0] = value
   }
 })
@@ -298,7 +311,9 @@ document.querySelector("#x-shear").addEventListener("input", (event) => {
 document.querySelector("#y-shear").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
+      shapes[selectedShapes[i]].vertices
+    )
     shapes[selectedShapes[i]].params.shear[1] = value
   }
 })
@@ -331,4 +346,70 @@ document.getElementById("animate").onclick = () => {
       shapes[selectedShapes[i]].animateShape()
     }
   }
+}
+
+// Save Listener
+document.getElementById("save").onclick = () => {
+  if (selectedShapes.length == 0) {
+    alert("You need to select atleast 1 shape")
+    return
+  }
+  let data = []
+  for (let i = 0; i < selectedShapes.length; i++) {
+    let shapeId = selectedShapes[i]
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == shapeId) {
+        data.push(shapes[j].save())
+      }
+    }
+  }
+  var blob = new Blob([JSON.stringify(data)], {
+    type: "text/plain;charset=utf-8"
+  })
+  var datenow = new Date().toISOString().slice(0, 19).replace(/:/g, "-")
+  var fileName = `shapes-${datenow}.json`
+  var url = window.URL.createObjectURL(blob)
+  var a = document.createElement("a")
+  a.href = url
+  a.download = fileName
+  a.click()
+}
+
+// Load Listener
+document.getElementById("load").onclick = () => {
+  var input = document.createElement("input")
+  input.type = "file"
+  input.accept = "application/json"
+  input.onchange = (event) => {
+    var file = event.target.files[0]
+    var reader = new FileReader()
+    reader.onload = (event) => {
+      var data = JSON.parse(event.target.result)
+      for (let i = 0; i < data.length; i++) {
+        let shape
+        switch (data[i].shapeName) {
+          case "Line":
+            shape = new Line(shapeIdx, gl)
+            break
+          case "Square":
+            shape = new Square(shapeIdx, gl)
+            break
+          case "Rectangle":
+            shape = new Rectangle(shapeIdx, gl)
+            break
+          case "Polygon":
+            shape = new Polygon(shapeIdx, gl)
+            break
+          default:
+            console.log("Unknown shape selected")
+            break
+        }
+        shape.load(data[i])
+        shapes.push(shape)
+        shapeIdx++
+      }
+    }
+    reader.readAsText(file)
+  }
+  input.click()
 }
