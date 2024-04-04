@@ -208,6 +208,7 @@ canvas.addEventListener("mousedown", (event) => {
 document.querySelector("#scaling").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
     shapes[selectedShapes[i]].params.scale = value
   }
 })
@@ -216,6 +217,7 @@ document.querySelector("#scaling").addEventListener("input", (event) => {
 document.querySelector("#x-transform").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
     shapes[selectedShapes[i]].params.xTransform = value
   }
 })
@@ -224,6 +226,7 @@ document.querySelector("#x-transform").addEventListener("input", (event) => {
 document.querySelector("#y-transform").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
     shapes[selectedShapes[i]].params.yTransform = value
   }
 })
@@ -232,6 +235,7 @@ document.querySelector("#y-transform").addEventListener("input", (event) => {
 document.querySelector("#rotation").addEventListener("input", (event) => {
   let value = parseFloat(event.target.value)
   for (let i = 0; i < selectedShapes.length; i++) {
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
     shapes[selectedShapes[i]].params.rotation = value
   }
 })
@@ -241,6 +245,7 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
   let value = event.target.value
   // for selected shapes
   for (let i = 0; i < selectedShapes.length; i++) {
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
     shapes[selectedShapes[i]].params.translation[0] = value
   }
   // for selected point
@@ -249,7 +254,10 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
     let pointIdx = parseInt(selectedPoints[i].split("-")[1])
     for (let j = 0; j < shapes.length; j++) {
       if (shapes[j].shapeID == shapeId && !selectedShapes.includes(shapeId)) {
-        shapes[j].vertices[pointIdx * 5] = parseFloat(value)
+        let PointX = shapes[j].vertices[pointIdx * 5]
+        let PointY = shapes[j].vertices[pointIdx * 5 + 1]
+        shapes[j].params.midPoint = [PointX, PointY]
+        shapes[j].params.scale = value
       }
     }
   }
@@ -259,6 +267,7 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
 document.querySelector("#y-translate").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
     shapes[selectedShapes[i]].params.translation[1] = value
   }
   // for selected point
@@ -267,7 +276,10 @@ document.querySelector("#y-translate").addEventListener("input", (event) => {
     let pointIdx = parseInt(selectedPoints[i].split("-")[1])
     for (let j = 0; j < shapes.length; j++) {
       if (shapes[j].shapeID == shapeId && !selectedShapes.includes(shapeId)) {
-        shapes[j].vertices[pointIdx * 5 + 1] = parseFloat(value)
+        let PointX = shapes[j].vertices[pointIdx * 5]
+        let PointY = shapes[j].vertices[pointIdx * 5 + 1]
+        shapes[j].params.midPoint = [PointX, PointY]
+        shapes[j].params.scale = value
       }
     }
   }
@@ -277,6 +289,7 @@ document.querySelector("#y-translate").addEventListener("input", (event) => {
 document.querySelector("#x-shear").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
     shapes[selectedShapes[i]].params.shear[0] = value
   }
 })
@@ -285,6 +298,7 @@ document.querySelector("#x-shear").addEventListener("input", (event) => {
 document.querySelector("#y-shear").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
+    shapes[selectedShapes[i]].params.midPoint = findMidPoint(shapes[selectedShapes[i]].vertices)
     shapes[selectedShapes[i]].params.shear[1] = value
   }
 })

@@ -82,10 +82,7 @@ class Square extends Shape {
       this.vertices[18] = this.params.g
       this.vertices[19] = this.params.b
 
-      this.params.midPoint = findMidpoint(
-        { x: this.vertices[0], y: this.vertices[1] },
-        { x: this.vertices[10], y: this.vertices[11] }
-      )
+      this.params.midPoint = findMidPoint(this.vertices)
       this.render()
       this.createShapeEditor()
       this.createPointEditor()

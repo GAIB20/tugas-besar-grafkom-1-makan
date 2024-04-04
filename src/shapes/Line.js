@@ -44,10 +44,7 @@ class Line extends Shape {
       this.vertices[8] = this.params.g
       this.vertices[9] = this.params.b
 
-      this.params.midPoint = findMidpoint(
-        this.params.initPoint,
-        this.params.endPoint
-      )
+      this.params.midPoint = findMidPoint(this.vertices)
       this.render()
       this.createShapeEditor()
       this.createPointEditor()

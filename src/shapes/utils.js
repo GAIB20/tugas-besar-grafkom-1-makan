@@ -13,13 +13,7 @@ function getRealPosition(canvas, x, y) {
   return { realX, realY }
 }
 
-function findMidpoint(point1, point2) {
-  const midpoint_x = (point1.x + point2.x) / 2
-  const midpoint_y = (point1.y + point2.y) / 2
-  return [midpoint_x, midpoint_y]
-}
-
-function findPolygonMidPoint(vertices) {
+function findMidPoint(vertices) {
   let sumX = 0
   let sumY = 0
   for (let i = 0; i < vertices.length; i += 5) {

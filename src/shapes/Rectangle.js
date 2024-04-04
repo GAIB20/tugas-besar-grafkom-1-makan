@@ -69,10 +69,7 @@ class Rectangle extends Shape {
       this.vertices[18] = this.params.g
       this.vertices[19] = this.params.b
 
-      this.params.midPoint = findMidpoint(
-        this.params.initPoint,
-        this.params.endPoint
-      )
+      this.params.midPoint = findMidPoint(this.vertices)
       this.render()
       this.createShapeEditor()
       this.createPointEditor()
