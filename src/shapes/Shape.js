@@ -169,9 +169,9 @@ class Shape {
 
       // Shearing
       relativePosition[i] =
-        relativePosition[i] + relativePosition[i + 1] * this.params.shear[1]
+        relativePosition[i] + relativePosition[i + 1] * this.params.shear[0]
       relativePosition[i + 1] =
-        relativePosition[i + 1] + relativePosition[i] * this.params.shear[0]
+        relativePosition[i + 1] + relativePosition[i] * this.params.shear[1]
 
       relativePosition[i] +=
         this.params.midPoint[0] + parseFloat(this.params.translation[0])
