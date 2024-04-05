@@ -150,13 +150,12 @@ class Shape {
   }
 
   createShapeEditor() {
-        let shapeSettingDiv = document.querySelector(".shape-setting")
+    let shapeSettingDiv = document.querySelector(".shape-setting")
     let shapeInput = document.createElement("input")
     shapeInput.setAttribute("type", "checkbox")
     shapeInput.setAttribute("id", this.shapeID)
     let shapeLabel = document.createElement("label")
     shapeLabel.setAttribute("for", this.shapeID)
-    // shapeLabel.textContent = this.shapeID + 1 + ". " + this.shapeName
     shapeLabel.textContent = this.shapeName + ", ID: " + this.shapeID
     shapeInput.addEventListener("change", () => {
       let pointCheckboxes = document.querySelectorAll(
