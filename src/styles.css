@@ -1,0 +1,309 @@
+body {
+  font-family: 'Poppins';
+}
+
+.point {
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030; /* Adjust as needed to ensure navbar is on top */
+  display: flex;
+}
+.nav-help-icon, .nav-title, .nav-shape-menu {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-shape-menu {
+  justify-content: flex-start;
+}
+
+.nav-help-icon {
+  display: flex;
+  text-align: right;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-title {
+  font-size: 1.5rem;
+  text-align: center;
+  justify-content: center;
+}
+
+/* SIDE BAR */
+.sidebar-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  margin-top: 60px;
+}
+
+.transform-menu {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+.developer-name {
+  margin-top: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.canvas-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-buttons button {
+  margin: 0 10px;
+  color: white;
+}
+
+.canvas-buttons button:hover {
+  cursor: pointer;
+  color: white;
+}
+
+/* RIGHT SIDE BAR */
+.sidebar-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  margin-top: 60px;
+}
+
+.shape-setting {
+  padding-left: 10px;
+}
+
+.shape-setting input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.shape-point-setting {
+  padding-left: 20px;
+  margin-right: 10px;
+}
+
+.shape-point-setting input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* CANVAS */
+#glCanvas {
+  position: absolute;
+  top: 60px;
+  left: 300px;
+  right: 300px;
+  bottom: 0;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: fadeIn;
+  animation-duration: 0.4s
+}
+
+.modal-header h2 {
+  align-items: center;
+}
+
+.modal-content {
+  position: fixed;
+  bottom: 0;
+  background-color: #fefefe;
+  width: 100%;
+  height: 80%;
+  overflow: auto;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: slideIn;
+  animation-duration: 0.4s
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-menu-main {
+  width: 60%;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-menu-main h3 {
+  margin-bottom: 15px;
+}
+
+.modal-menu-main ol {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-menu-main li {
+  margin-bottom: 5px;
+}
+
+.modal-menu-secondary {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: start;
+  width: 40%;
+}
+
+.modal-menu-ic {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+}
+
+.modal-menu-ic ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.modal-menu-ic li {
+  justify-content: flex-start;
+  align-items: start;
+  list-style-type: none;
+  padding: 15px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-menu-ic li:hover {
+  background-color: #f8f9fa;
+  cursor: help;
+}
+
+.modal-menu-ic li span {
+  margin-left: 30px;
+  justify-self: flex-start;
+}
+
+.modal-icon-text {
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-menu-draw{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: start;
+}
+
+.modal-menu-draw ul li {
+  padding-bottom: 10px;
+}
+
+/* The Close Button */
+.modal-close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: #cf0000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #1e293b;
+  color: white;
+}
+
+/* ANIMATION */
+/* Add Animation */
+@-webkit-keyframes slideIn {
+  from { 
+    bottom: -300px; 
+    opacity: 0
+  } 
+  to { 
+    bottom: 0; 
+    opacity: 1
+  }
+}
+
+@keyframes slideIn {
+  from { 
+    bottom: -300px; 
+    opacity: 0
+  }
+  to { 
+    bottom: 0; 
+    opacity: 1
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  from { 
+    opacity: 0
+  } 
+  to { 
+    opacity: 1
+  }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0
+  } 
+  to { 
+    opacity: 1
+  }
+}

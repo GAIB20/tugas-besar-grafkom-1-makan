@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="image/png" sizes="96x96" rel="icon" href="favicon.png">
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>2D Web Based CAD - MaKaN</title>
+  </head>
+  <body onload="main()">
+    <div class="container">
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="nav-shape-menu">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a id="Point" class="nav-link active" href="#"
+                ><svg
+                  width="25px"
+                  height="25px"
+                  viewBox="0 0 25 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3.3572 3.23397C3.66645 2.97447 4.1014 2.92638 4.45988 3.11204L20.7851 11.567C21.1426 11.7522 21.3542 12.1337 21.322 12.5351C21.2898 12.9364 21.02 13.2793 20.6375 13.405L13.7827 15.6586L10.373 22.0179C10.1828 22.3728 9.79826 22.5789 9.39743 22.541C8.9966 22.503 8.65762 22.2284 8.53735 21.8441L3.04564 4.29872C2.92505 3.91345 3.04794 3.49346 3.3572 3.23397ZM5.67123 5.99173L9.73507 18.9752L12.2091 14.361C12.3304 14.1347 12.5341 13.9637 12.7781 13.8835L17.7518 12.2484L5.67123 5.99173Z"
+                    fill="#000000"
+                  /></svg
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a id="Line" class="nav-link" href="#">
+                <svg
+                  width="25px"
+                  height="25px"
+                  viewBox="0 0 25 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M18 5C17.4477 5 17 5.44772 17 6C17 6.27642 17.1108 6.52505 17.2929 6.70711C17.475 6.88917 17.7236 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5ZM15 6C15 4.34315 16.3431 3 18 3C19.6569 3 21 4.34315 21 6C21 7.65685 19.6569 9 18 9C17.5372 9 17.0984 8.8948 16.7068 8.70744L8.70744 16.7068C8.8948 17.0984 9 17.5372 9 18C9 19.6569 7.65685 21 6 21C4.34315 21 3 19.6569 3 18C3 16.3431 4.34315 15 6 15C6.46278 15 6.90157 15.1052 7.29323 15.2926L15.2926 7.29323C15.1052 6.90157 15 6.46278 15 6ZM6 17C5.44772 17 5 17.4477 5 18C5 18.5523 5.44772 19 6 19C6.55228 19 7 18.5523 7 18C7 17.7236 6.88917 17.475 6.70711 17.2929C6.52505 17.1108 6.27642 17 6 17Z"
+                    fill="#000000"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a id="Square" class="nav-link" href="#"
+                ><svg
+                  width="25px"
+                  height="25px"
+                  viewBox="0 0 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  aria-hidden="true"
+                  role="img"
+                  class="iconify iconify--gis"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <path
+                    d="M12.55 0C5.662 0 0 5.661 0 12.55c0 6.017 4.317 11.096 10 12.286v50.428c-5.683 1.19-10 6.27-10 12.287C0 94.44 5.661 100.1 12.55 100.1c6.047 0 11.09-4.374 12.241-10.1h50.455c1.152 5.732 6.253 10.1 12.305 10.1c6.65 0 12.105-5.288 12.478-11.852a3.5 3.5 0 0 0 .07-.697a3.5 3.5 0 0 0-.07-.697C99.703 81.117 95.495 76.356 90 75.246V24.854c5.495-1.11 9.703-5.87 10.03-11.606a3.5 3.5 0 0 0 .07-.697a3.5 3.5 0 0 0-.07-.697C99.655 5.29 94.201 0 87.55 0c-6.016 0-11.096 4.317-12.286 10H24.77C23.58 4.324 18.56 0 12.55 0zm0 7c3.107 0 5.55 2.444 5.55 5.55c0 3.107-2.443 5.55-5.55 5.55C9.445 18.1 7 15.657 7 12.55C7 9.445 9.444 7 12.55 7zm75 0c3.107 0 5.55 2.444 5.55 5.55c0 3.107-2.443 5.55-5.55 5.55c-3.106 0-5.55-2.443-5.55-5.55C82 9.445 84.444 7 87.55 7zM24.218 17h51.62A12.678 12.678 0 0 0 83 24.225v51.65A12.684 12.684 0 0 0 75.875 83h-51.7A12.64 12.64 0 0 0 17 75.838V24.262A12.638 12.638 0 0 0 24.217 17zM12.55 82c3.106 0 5.549 2.444 5.549 5.55c0 3.107-2.443 5.55-5.55 5.55C9.445 93.1 7 90.657 7 87.55C7 84.445 9.444 82 12.55 82zm75 0c3.106 0 5.549 2.444 5.549 5.55c0 3.107-2.443 5.55-5.55 5.55c-3.106 0-5.55-2.443-5.55-5.55c0-3.106 2.444-5.55 5.55-5.55z"
+                    fill="#000000"
+                  ></path></svg
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a id="Rectangle" class="nav-link" href="#"
+                ><svg
+                  width="25px"
+                  height="25px"
+                  viewBox="0 0 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  aria-hidden="true"
+                  role="img"
+                  class="iconify iconify--gis"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <path
+                    d="M12.55 15C5.662 15 0 20.661 0 27.55c0 6.017 4.317 11.096 10 12.286v20.428c-5.683 1.19-10 6.27-10 12.287C0 79.44 5.661 85.1 12.55 85.1c6.047 0 11.09-4.374 12.241-10.1h50.455c1.152 5.732 6.253 10.1 12.305 10.1c6.65 0 12.105-5.288 12.478-11.852a3.5 3.5 0 0 0 .07-.697a3.5 3.5 0 0 0-.07-.697C99.703 66.117 95.495 61.356 90 60.246V39.854c5.495-1.11 9.703-5.87 10.03-11.606a3.5 3.5 0 0 0 .07-.697a3.5 3.5 0 0 0-.07-.697C99.655 20.29 94.201 15 87.55 15c-6.016 0-11.096 4.317-12.286 10H24.77c-1.19-5.676-6.209-10-12.22-10zm0 7c3.107 0 5.55 2.444 5.55 5.55c0 3.107-2.443 5.55-5.55 5.55C9.445 33.1 7 30.657 7 27.55C7 24.445 9.444 22 12.55 22zm75 0c3.107 0 5.55 2.444 5.55 5.55c0 3.107-2.443 5.55-5.55 5.55c-3.106 0-5.55-2.443-5.55-5.55c0-3.106 2.444-5.55 5.55-5.55zM24.218 32h51.62A12.678 12.678 0 0 0 83 39.225v21.65A12.684 12.684 0 0 0 75.875 68h-51.7A12.64 12.64 0 0 0 17 60.838V39.262A12.638 12.638 0 0 0 24.217 32zM12.55 67c3.106 0 5.549 2.444 5.549 5.55c0 3.107-2.443 5.55-5.55 5.55C9.445 78.1 7 75.657 7 72.55C7 69.445 9.444 67 12.55 67zm75 0c3.106 0 5.549 2.444 5.549 5.55c0 3.107-2.443 5.55-5.55 5.55c-3.106 0-5.55-2.443-5.55-5.55c0-3.106 2.444-5.55 5.55-5.55z"
+                    fill="#000000"
+                  ></path></svg
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a id="Polygon" class="nav-link" href="#"
+                ><svg
+                  width="25px"
+                  height="25px"
+                  viewBox="0 0 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  aria-hidden="true"
+                  role="img"
+                  class="iconify iconify--gis"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <path
+                    d="M42.02 3.424c-4.29 0-8.477 2.182-10.8 6.12c-2.57 4.362-2.164 9.697.583 13.612l-12.567 12.42a3.5 3.5 0 0 0-.045-.015c-5.843-3.011-13.169-.999-16.546 4.73c-3.5 5.935-1.5 13.686 4.435 17.186c3.463 2.042 7.543 2.2 11.037.806l12.74 19.137c-1.964 2.217-3.171 5.117-3.171 8.287c0 6.89 5.659 12.55 12.548 12.55c6.358 0 11.61-4.835 12.389-10.993l2.137-.76l-1.42-3.99l-.947.338a12.608 12.608 0 0 0-2.155-4.623l.184.142l32.683-40.256a12.41 12.41 0 0 0 3.64.594l-.071 1.4l4.226.207l.11-2.248c2.779-.922 5.254-2.789 6.845-5.488c3.38-5.733 1.591-13.125-3.882-16.777a3.5 3.5 0 0 0-.555-.408a3.5 3.5 0 0 0-.639-.293c-5.843-3.011-13.169-.999-16.547 4.73c-.068.115-.12.235-.183.352l-21.504-4.715c-.168-3.901-2.153-7.663-5.586-9.953a3.5 3.5 0 0 0-.553-.409a3.5 3.5 0 0 0-.638-.293a12.526 12.526 0 0 0-5.748-1.39zm.2 6.93c.894.035 1.795.29 2.632.783c2.676 1.578 3.538 4.925 1.96 7.601c-1.577 2.676-4.923 3.54-7.6 1.961c-2.675-1.578-3.54-4.923-1.962-7.6c1.085-1.84 3.006-2.823 4.97-2.745zM87.233 20.64a5.6 5.6 0 0 1 2.631.783c2.676 1.578 3.541 4.925 1.963 7.601c-1.578 2.677-4.925 3.541-7.601 1.963c-2.677-1.578-3.54-4.925-1.961-7.601c1.084-1.84 3.004-2.824 4.968-2.746zm-34.375 1.623l21.684 4.752a12.686 12.686 0 0 0 2.793 7.107L44.9 74.073a12.32 12.32 0 0 0-4.666-.915a12.4 12.4 0 0 0-3.468.504L23.652 53.971c.216-.3.423-.606.614-.93c2.362-4.007 2.193-8.82.011-12.605l13.05-12.899c5.648 2.28 12.337.15 15.517-5.244l.013-.03zM13.643 41.102a5.6 5.6 0 0 1 2.63.783c2.677 1.578 3.541 4.923 1.963 7.6c-1.578 2.675-4.923 3.54-7.6 1.962c-2.675-1.578-3.54-4.925-1.962-7.601c1.085-1.84 3.004-2.822 4.969-2.744zm72.826 3.234l-.424 8.455l4.234.211l.414-8.459l-4.224-.207zm-.63 12.682l-.048.994c-.078-.002-.154-.012-.232-.012c-6.89 0-12.551 5.66-12.551 12.549c0 1.647.331 3.22.918 4.666l-4.62 1.64l1.415 3.987l5.51-1.95c2.304 2.572 5.634 4.208 9.328 4.208c6.65 0 12.103-5.288 12.478-11.85a3.5 3.5 0 0 0 .07-.701a3.5 3.5 0 0 0-.07-.694c-.284-5.024-3.55-9.292-8.047-11.023l.08-1.598l-4.23-.216zM85.56 65c3.106 0 5.548 2.442 5.548 5.549c0 3.106-2.442 5.55-5.548 5.55c-3.107 0-5.551-2.444-5.551-5.55c0-3.107 2.444-5.549 5.55-5.549zM65.31 78.271l-7.977 2.834l1.412 3.987l7.984-2.83l-1.42-3.99zm-25.077 1.887c3.107 0 5.551 2.442 5.551 5.549s-2.444 5.55-5.55 5.55c-3.107 0-5.55-2.443-5.55-5.55c0-3.107 2.443-5.549 5.55-5.549z"
+                    fill="#000000"
+                    fill-rule="evenodd"
+                  ></path></svg
+              ></a>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-title">
+          <h2>2D Web Based CAD</h2>
+        </div>
+        <div class="nav-help-icon">
+          <div class="canvas-buttons">
+            <button type="button" class="btn btn-primary" id="save">
+              Save
+            </button>
+            <button type="button" class="btn btn-success" id="load">Load</button>
+          </div>
+          <a id="help" href="#">
+            <svg
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.08997 9.00007C9.32507 8.33174 9.78912 7.76818 10.3999 7.40921C11.0107 7.05023 11.7289 6.91901 12.4271 7.03879C13.1254 7.15856 13.7588 7.5216 14.215 8.0636C14.6713 8.60561 14.921 9.2916 14.92 10.0001C14.92 12.0001 11.92 13.0001 11.92 13.0001M12 17.0001H12.01M3 7.94153V16.0586C3 16.4013 3 16.5726 3.05048 16.7254C3.09515 16.8606 3.16816 16.9847 3.26463 17.0893C3.37369 17.2077 3.52345 17.2909 3.82297 17.4573L11.223 21.5684C11.5066 21.726 11.6484 21.8047 11.7985 21.8356C11.9315 21.863 12.0685 21.863 12.2015 21.8356C12.3516 21.8047 12.4934 21.726 12.777 21.5684L20.177 17.4573C20.4766 17.2909 20.6263 17.2077 20.7354 17.0893C20.8318 16.9847 20.9049 16.8606 20.9495 16.7254C21 16.5726 21 16.4013 21 16.0586V7.94153C21 7.59889 21 7.42756 20.9495 7.27477C20.9049 7.13959 20.8318 7.01551 20.7354 6.91082C20.6263 6.79248 20.4766 6.70928 20.177 6.54288L12.777 2.43177C12.4934 2.27421 12.3516 2.19543 12.2015 2.16454C12.0685 2.13721 11.9315 2.13721 11.7985 2.16454C11.6484 2.19543 11.5066 2.27421 11.223 2.43177L3.82297 6.54288C3.52345 6.70928 3.37369 6.79248 3.26463 6.91082C3.16816 7.01551 3.09515 7.13959 3.05048 7.27477C3 7.42756 3 7.59889 3 7.94153Z"
+                stroke="#000000"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
+      </nav>
+    
+      <!-- LEFT SIDE BAR -->
+      <div class="sidebar-left">
+        <div class="sidebar-title">
+          <a>Transformation Menu</a>
+        </div>
+        <div class="transform-menu">
+          <label>X Position</label>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            value="0"
+            id="x-translate"
+          />
+        </div>
+        <div class="transform-menu">
+          <label>Y Position</label>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            value="0"
+            id="y-translate"
+          />
+        </div>
+        <div class="transform-menu">
+          <label>Scaling</label>
+          <input
+            type="range"
+            min="0"
+            max="2"
+            step="0.01"
+            value="1"
+            id="scaling"
+          />
+        </div>
+        <div class="transform-menu">
+          <label>Rotation Angle</label>
+          <input
+            type="range"
+            min="0"
+            max="360"
+            step="0.01"
+            value="0"
+            id="rotation"
+          />
+        </div>
+        <div class="transform-menu">
+          <label>X Shear</label>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            value="0"
+            id="x-shear"
+          />
+        </div>
+        <div class="transform-menu">
+          <label>Y Shear</label>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            value="0"
+            id="y-shear"
+          />
+        </div>
+        <div class="transform-menu">
+          <label>Transform X</label>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+            id="x-transform"
+          />
+        </div>
+        <div class="transform-menu">
+          <label>Transform Y</label>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+            id="y-transform"
+          />
+        </div>
+        <div class="color-menu">
+          <label>Object Color Picker</label>
+          <input type="color" id="objectcolor" value="#1e00ff" />
+        </div>
+        <div class="canvas-buttons">
+          <button type="button" class="btn btn-info" id="animate">
+            Animate
+          </button>
+          <button type="button" class="btn btn-warning" id="union">
+            Union
+          </button>
+          <button type="button" class="btn btn-danger" id="delete">
+            Delete
+          </button>
+        </div>
+        <div class="developer-name">
+          <p>Creator:</p>
+          <p>13521007 -🤪M.Mahendra</p>
+          <p>13521023 -😵Kenny B.N.P.</p>
+          <p>13521024 -👑KING Nadil</p>
+        </div>
+      </div>
+
+      <!-- CANVAS -->
+      <div class="canvas-container">
+        <canvas id="glCanvas" style="border: solid #444"></canvas>
+      </div>
+
+      <!-- RIGHT SIDE BAR -->
+      <div class="sidebar-right">
+        <div class="sidebar-title">
+          <a>Shape and Point Menu</a>
+        </div>
+        <div class="canvas-buttons">
+          <button type="button" class="btn btn-info" id="lockpolygonpoint" style="margin-bottom: 10px">
+            Lock Point (Polygon)
+          </button>
+        </div>
+        <div class="shape-setting">
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal-help">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Help</h2>
+          <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="modal-menu-main">
+            <h3>How to use</h3>
+            <ol>
+              <li>
+                <b>Transformation Menu</b>
+                <ul>
+                  <li><u>Select an element</u> first in the <b>Shape and Point Menu</b></li>
+                  <li>Use the slider to transform the element</li>
+                  <li>You can transform: </li>
+                    <ul>
+                      <li><b>X and Y Position</b> for each <u>point</u> or <u>shape</u></li>
+                      <li><b>Scaling</b> for each <u>shape</u></li>
+                      <li><b>Rotation</b> for each <u>shape</u></li>
+                      <li><b>X and Y Shear</b> for each <u>shape</u></li>
+                      <li><b>X and Y Transform</b> for each <u>shape</u></li>
+                    </ul>
+                </ul>
+              </li>
+              <li>
+                <b>Shape and Point Menu</b>
+                <ul>
+                  <li>This menu will display <b>elements</b> that you created</li>
+                  <li>Elements will include <b>shapes</b> and its <b>points</b></li>
+                  <li><u>Tick</u> the element's checkbox to <b>select</b> it</li>
+                  <li>Any action that you choose <u>(transform, save, load, coloring, animate)</u> will affect the <b>selected</b> element</li>
+                </ul>
+              </li>
+              <li>
+                <b>Color Picker</b>
+                <ul>
+                  <li><u>Select one/multiple element</u> first in the <b>Shape and Point Menu</b></li>
+                  <li>Use the color picker to change the element's color</li>
+                  <li>You can change the color of shape or point</li>
+                </ul>
+              </li>
+              <li>
+                <b>Save and Load</b>
+                <ul>
+                  <li>Click the save button to save elements that you pick</li>
+                  <li>You can load a saved elements by clicking the load button and pick the file</li>
+                </ul>
+              </li>
+              <li>
+                <b>Animation</b>
+                <ul>
+                  <li>Click the animate button to animate the selected <b>shape</b></li>
+                </ul>
+              </li>
+              <li>
+                <b>Delete</b>
+                <ul>
+                  <li>Click the delete button to delete the selected <b>shape</b></li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+          <div class="modal-menu-secondary">
+            <div class="modal-menu-ic">
+              <h3>Icons</h3>
+              <ul>
+                <li>
+                  <span class="modal-icon">
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M3.3572 3.23397C3.66645 2.97447 4.1014 2.92638 4.45988 3.11204L20.7851 11.567C21.1426 11.7522 21.3542 12.1337 21.322 12.5351C21.2898 12.9364 21.02 13.2793 20.6375 13.405L13.7827 15.6586L10.373 22.0179C10.1828 22.3728 9.79826 22.5789 9.39743 22.541C8.9966 22.503 8.65762 22.2284 8.53735 21.8441L3.04564 4.29872C2.92505 3.91345 3.04794 3.49346 3.3572 3.23397ZM5.67123 5.99173L9.73507 18.9752L12.2091 14.361C12.3304 14.1347 12.5341 13.9637 12.7781 13.8835L17.7518 12.2484L5.67123 5.99173Z"
+                        fill="#000000" />
+                    </svg>
+                  </span>
+                  <span class="modal-icon-text">
+                    <b>Normal Cursor</b>
+                  </span>
+                </li>
+                <li>
+                  <span class="modal-icon">
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M18 5C17.4477 5 17 5.44772 17 6C17 6.27642 17.1108 6.52505 17.2929 6.70711C17.475 6.88917 17.7236 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5ZM15 6C15 4.34315 16.3431 3 18 3C19.6569 3 21 4.34315 21 6C21 7.65685 19.6569 9 18 9C17.5372 9 17.0984 8.8948 16.7068 8.70744L8.70744 16.7068C8.8948 17.0984 9 17.5372 9 18C9 19.6569 7.65685 21 6 21C4.34315 21 3 19.6569 3 18C3 16.3431 4.34315 15 6 15C6.46278 15 6.90157 15.1052 7.29323 15.2926L15.2926 7.29323C15.1052 6.90157 15 6.46278 15 6ZM6 17C5.44772 17 5 17.4477 5 18C5 18.5523 5.44772 19 6 19C6.55228 19 7 18.5523 7 18C7 17.7236 6.88917 17.475 6.70711 17.2929C6.52505 17.1108 6.27642 17 6 17Z"
+                        fill="#000000" />
+                    </svg>
+                  </span>
+                  <span class="modal-icon-text">
+                    <b>Draw a line</b>
+                  </span>
+                </li>
+                <li>
+                  <span class="modal-icon">
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 100 100"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      aria-hidden="true"
+                      role="img"
+                      class="iconify iconify--gis"
+                      preserveAspectRatio="xMidYMid meet"
+                    >
+                      <path
+                        d="M12.55 0C5.662 0 0 5.661 0 12.55c0 6.017 4.317 11.096 10 12.286v50.428c-5.683 1.19-10 6.27-10 12.287C0 94.44 5.661 100.1 12.55 100.1c6.047 0 11.09-4.374 12.241-10.1h50.455c1.152 5.732 6.253 10.1 12.305 10.1c6.65 0 12.105-5.288 12.478-11.852a3.5 3.5 0 0 0 .07-.697a3.5 3.5 0 0 0-.07-.697C99.703 81.117 95.495 76.356 90 75.246V24.854c5.495-1.11 9.703-5.87 10.03-11.606a3.5 3.5 0 0 0 .07-.697a3.5 3.5 0 0 0-.07-.697C99.655 5.29 94.201 0 87.55 0c-6.016 0-11.096 4.317-12.286 10H24.77C23.58 4.324 18.56 0 12.55 0zm0 7c3.107 0 5.55 2.444 5.55 5.55c0 3.107-2.443 5.55-5.55 5.55C9.445 18.1 7 15.657 7 12.55C7 9.445 9.444 7 12.55 7zm75 0c3.107 0 5.55 2.444 5.55 5.55c0 3.107-2.443 5.55-5.55 5.55c-3.106 0-5.55-2.443-5.55-5.55C82 9.445 84.444 7 87.55 7zM24.218 17h51.62A12.678 12.678 0 0 0 83 24.225v51.65A12.684 12.684 0 0 0 75.875 83h-51.7A12.64 12.64 0 0 0 17 75.838V24.262A12.638 12.638 0 0 0 24.217 17zM12.55 82c3.106 0 5.549 2.444 5.549 5.55c0 3.107-2.443 5.55-5.55 5.55C9.445 93.1 7 90.657 7 87.55C7 84.445 9.444 82 12.55 82zm75 0c3.106 0 5.549 2.444 5.549 5.55c0 3.107-2.443 5.55-5.55 5.55c-3.106 0-5.55-2.443-5.55-5.55c0-3.106 2.444-5.55 5.55-5.55z"
+                        fill="#000000"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span class="modal-icon-text">
+                    <b>Draw a Square Shape</b>
+                  </span>
+                </li>
+                <li>
+                  <span class="modal-icon">
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 100 100"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      aria-hidden="true"
+                      role="img"
+                      class="iconify iconify--gis"
+                      preserveAspectRatio="xMidYMid meet"
+                    >
+                      <path
+                        d="M12.55 15C5.662 15 0 20.661 0 27.55c0 6.017 4.317 11.096 10 12.286v20.428c-5.683 1.19-10 6.27-10 12.287C0 79.44 5.661 85.1 12.55 85.1c6.047 0 11.09-4.374 12.241-10.1h50.455c1.152 5.732 6.253 10.1 12.305 10.1c6.65 0 12.105-5.288 12.478-11.852a3.5 3.5 0 0 0 .07-.697a3.5 3.5 0 0 0-.07-.697C99.703 66.117 95.495 61.356 90 60.246V39.854c5.495-1.11 9.703-5.87 10.03-11.606a3.5 3.5 0 0 0 .07-.697a3.5 3.5 0 0 0-.07-.697C99.655 20.29 94.201 15 87.55 15c-6.016 0-11.096 4.317-12.286 10H24.77c-1.19-5.676-6.209-10-12.22-10zm0 7c3.107 0 5.55 2.444 5.55 5.55c0 3.107-2.443 5.55-5.55 5.55C9.445 33.1 7 30.657 7 27.55C7 24.445 9.444 22 12.55 22zm75 0c3.107 0 5.55 2.444 5.55 5.55c0 3.107-2.443 5.55-5.55 5.55c-3.106 0-5.55-2.443-5.55-5.55c0-3.106 2.444-5.55 5.55-5.55zM24.218 32h51.62A12.678 12.678 0 0 0 83 39.225v21.65A12.684 12.684 0 0 0 75.875 68h-51.7A12.64 12.64 0 0 0 17 60.838V39.262A12.638 12.638 0 0 0 24.217 32zM12.55 67c3.106 0 5.549 2.444 5.549 5.55c0 3.107-2.443 5.55-5.55 5.55C9.445 78.1 7 75.657 7 72.55C7 69.445 9.444 67 12.55 67zm75 0c3.106 0 5.549 2.444 5.549 5.55c0 3.107-2.443 5.55-5.55 5.55c-3.106 0-5.55-2.443-5.55-5.55c0-3.106 2.444-5.55 5.55-5.55z"
+                        fill="#000000"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span class="modal-icon-text">
+                    <b>Draw a Rectangle Shape</b>
+                  </span>
+                </li>
+                <li>
+                  <span class="modal-icon">
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 100 100"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      aria-hidden="true"
+                      role="img"
+                      class="iconify iconify--gis"
+                      preserveAspectRatio="xMidYMid meet"
+                    >
+                      <path
+                        d="M42.02 3.424c-4.29 0-8.477 2.182-10.8 6.12c-2.57 4.362-2.164 9.697.583 13.612l-12.567 12.42a3.5 3.5 0 0 0-.045-.015c-5.843-3.011-13.169-.999-16.546 4.73c-3.5 5.935-1.5 13.686 4.435 17.186c3.463 2.042 7.543 2.2 11.037.806l12.74 19.137c-1.964 2.217-3.171 5.117-3.171 8.287c0 6.89 5.659 12.55 12.548 12.55c6.358 0 11.61-4.835 12.389-10.993l2.137-.76l-1.42-3.99l-.947.338a12.608 12.608 0 0 0-2.155-4.623l.184.142l32.683-40.256a12.41 12.41 0 0 0 3.64.594l-.071 1.4l4.226.207l.11-2.248c2.779-.922 5.254-2.789 6.845-5.488c3.38-5.733 1.591-13.125-3.882-16.777a3.5 3.5 0 0 0-.555-.408a3.5 3.5 0 0 0-.639-.293c-5.843-3.011-13.169-.999-16.547 4.73c-.068.115-.12.235-.183.352l-21.504-4.715c-.168-3.901-2.153-7.663-5.586-9.953a3.5 3.5 0 0 0-.553-.409a3.5 3.5 0 0 0-.638-.293a12.526 12.526 0 0 0-5.748-1.39zm.2 6.93c.894.035 1.795.29 2.632.783c2.676 1.578 3.538 4.925 1.96 7.601c-1.577 2.676-4.923 3.54-7.6 1.961c-2.675-1.578-3.54-4.923-1.962-7.6c1.085-1.84 3.006-2.823 4.97-2.745zM87.233 20.64a5.6 5.6 0 0 1 2.631.783c2.676 1.578 3.541 4.925 1.963 7.601c-1.578 2.677-4.925 3.541-7.601 1.963c-2.677-1.578-3.54-4.925-1.961-7.601c1.084-1.84 3.004-2.824 4.968-2.746zm-34.375 1.623l21.684 4.752a12.686 12.686 0 0 0 2.793 7.107L44.9 74.073a12.32 12.32 0 0 0-4.666-.915a12.4 12.4 0 0 0-3.468.504L23.652 53.971c.216-.3.423-.606.614-.93c2.362-4.007 2.193-8.82.011-12.605l13.05-12.899c5.648 2.28 12.337.15 15.517-5.244l.013-.03zM13.643 41.102a5.6 5.6 0 0 1 2.63.783c2.677 1.578 3.541 4.923 1.963 7.6c-1.578 2.675-4.923 3.54-7.6 1.962c-2.675-1.578-3.54-4.925-1.962-7.601c1.085-1.84 3.004-2.822 4.969-2.744zm72.826 3.234l-.424 8.455l4.234.211l.414-8.459l-4.224-.207zm-.63 12.682l-.048.994c-.078-.002-.154-.012-.232-.012c-6.89 0-12.551 5.66-12.551 12.549c0 1.647.331 3.22.918 4.666l-4.62 1.64l1.415 3.987l5.51-1.95c2.304 2.572 5.634 4.208 9.328 4.208c6.65 0 12.103-5.288 12.478-11.85a3.5 3.5 0 0 0 .07-.701a3.5 3.5 0 0 0-.07-.694c-.284-5.024-3.55-9.292-8.047-11.023l.08-1.598l-4.23-.216zM85.56 65c3.106 0 5.548 2.442 5.548 5.549c0 3.106-2.442 5.55-5.548 5.55c-3.107 0-5.551-2.444-5.551-5.55c0-3.107 2.444-5.549 5.55-5.549zM65.31 78.271l-7.977 2.834l1.412 3.987l7.984-2.83l-1.42-3.99zm-25.077 1.887c3.107 0 5.551 2.442 5.551 5.549s-2.444 5.55-5.55 5.55c-3.107 0-5.55-2.443-5.55-5.55c0-3.107 2.443-5.549 5.55-5.549z"
+                        fill="#000000"
+                        fill-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span class="modal-icon-text">
+                    <b>Draw a Polygon Shape</b>
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="modal-menu-draw">
+              <h3>How to Draw</h3>
+              <ul>
+                <li>Click a shape icon that you want to draw</li>
+                <li>For <b>Polygon</b></li>
+                  <ul>
+                    <li><b>Click</b> on the canvas to create a <b>point</b></li>
+                    <li>A polygon will be formed after creating more than <u>2 points</u></li>
+                  </ul>    
+                <li>Other than Polygon <b>(Line, Rectangle, and Square)</b></li>
+                  <ul>
+                    <li><b>Drag</b> on the canvas to create a shape</li>
+                  </ul>
+              </ul>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </body>
+  <script src="./utils/shaders.js"></script>
+  <script src="./utils/webgl.js"></script>
+  <script src="./utils/listener.js"></script>
+  <script src="./shapes/utils.js"></script>
+  <script src="./shapes/Shape.js"></script>
+  <script src="./shapes/Line.js"></script>
+  <script src="./shapes/Rectangle.js"></script>
+  <script src="./shapes/Square.js"></script>
+  <script src="./shapes/Polygon.js"></script>
+  <script src="app.js"></script>
+</html>
