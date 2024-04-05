@@ -53,9 +53,60 @@ document.querySelector(".shape-setting").addEventListener("change", (event) => {
   }
 })
 
+document.getElementById("union").onclick = () => {
+  if (selectedShapes.length < 2) {
+    alert("You need to select atleast 2 shapes")
+    return
+  }
+
+  // Create the union shape
+  let unionVertices = []
+  let unionShape = new Polygon(shapeIdx, gl)
+  selectedShapes.forEach((shapeId) => {
+    let shape = shapes.find((shape) => shape.shapeID == shapeId)
+    unionVertices.push(...shape.vertices)
+  })
+  unionShape.vertices = unionVertices
+  unionShape.vertices = convexHull(unionShape.vertices)
+  unionShape.isShapePointEditorCreated = true
+  unionShape.isDone = true
+  unionShape.createShapeEditor()
+  unionShape.createPointEditor()
+  shapes.push(unionShape)
+  shapeIdx++
+
+  // Remove the selected shapes
+  shapes = shapes.filter(
+    (shape) => !selectedShapes.includes(shape.shapeID.toString())
+  )
+
+  // Remove the input and label if it is selected
+  selectedShapes.forEach((shapeId) => {
+    let input = document.getElementById(shapeId)
+    let label = document.querySelector(`label[for='${shapeId}']`)
+    input.remove()
+    label.remove()
+  })
+
+  // Remove the input and label if it is selected
+  selectedPoints.forEach((pointId) => {
+    let input = document.getElementById(pointId)
+    let label = document.querySelector(`label[for='${pointId}']`)
+    input.remove()
+    label.remove()
+  })
+
+  // Reset selected shapeects and points
+  selectedPoints = []
+  selectedShapes = []
+}
+
 // Delete Button Listener
 document.querySelector("#delete").addEventListener("click", () => {
-  // remove selected shape from list of shapes
+  if (selectedShapes.length == 0 && selectedPoints.length == 0) {
+    alert("You need to select atleast 1 shape or point")
+    return
+  }
   shapes = shapes.filter(
     (shape) => !selectedShapes.includes(shape.shapeID.toString())
   )
@@ -207,10 +258,12 @@ canvas.addEventListener("mousedown", (event) => {
 document.querySelector("#scaling").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
-      shapes[selectedShapes[i]].vertices
-    )
-    shapes[selectedShapes[i]].params.scale = value
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
+        shapes[j].params.scale = value
+      }
+    }
   }
 })
 
@@ -218,10 +271,12 @@ document.querySelector("#scaling").addEventListener("input", (event) => {
 document.querySelector("#x-transform").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
-      shapes[selectedShapes[i]].vertices
-    )
-    shapes[selectedShapes[i]].params.xTransform = value
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
+        shapes[j].params.xTransform = value
+      }
+    }
   }
 })
 
@@ -229,10 +284,12 @@ document.querySelector("#x-transform").addEventListener("input", (event) => {
 document.querySelector("#y-transform").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
-      shapes[selectedShapes[i]].vertices
-    )
-    shapes[selectedShapes[i]].params.yTransform = value
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
+        shapes[j].params.yTransform = value
+      }
+    }
   }
 })
 
@@ -240,10 +297,12 @@ document.querySelector("#y-transform").addEventListener("input", (event) => {
 document.querySelector("#rotation").addEventListener("input", (event) => {
   let value = parseFloat(event.target.value)
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
-      shapes[selectedShapes[i]].vertices
-    )
-    shapes[selectedShapes[i]].params.rotation = value
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
+        shapes[j].params.rotation = value
+      }
+    }
   }
 })
 
@@ -252,10 +311,12 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
   let value = event.target.value
   // for selected shapes
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
-      shapes[selectedShapes[i]].vertices
-    )
-    shapes[selectedShapes[i]].params.translation[0] = value
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
+        shapes[j].params.translation[0] = value
+      }
+    }
   }
   // for selected point
   for (let i = 0; i < selectedPoints.length; i++) {
@@ -276,10 +337,12 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
 document.querySelector("#y-translate").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
-      shapes[selectedShapes[i]].vertices
-    )
-    shapes[selectedShapes[i]].params.translation[1] = value
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
+        shapes[j].params.translation[1] = value
+      }
+    }
   }
   // for selected point
   for (let i = 0; i < selectedPoints.length; i++) {
@@ -300,10 +363,12 @@ document.querySelector("#y-translate").addEventListener("input", (event) => {
 document.querySelector("#x-shear").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
-      shapes[selectedShapes[i]].vertices
-    )
-    shapes[selectedShapes[i]].params.shear[0] = value
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
+        shapes[j].params.shear[0] = value
+      }
+    }
   }
 })
 
@@ -311,10 +376,12 @@ document.querySelector("#x-shear").addEventListener("input", (event) => {
 document.querySelector("#y-shear").addEventListener("input", (event) => {
   let value = event.target.value
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].params.midPoint = findMidPoint(
-      shapes[selectedShapes[i]].vertices
-    )
-    shapes[selectedShapes[i]].params.shear[1] = value
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
+        shapes[j].params.shear[1] = value
+      }
+    }
   }
 })
 
@@ -339,11 +406,19 @@ document.querySelector("#objectcolor").addEventListener("input", (event) => {
 
 // Animation Listener
 document.getElementById("animate").onclick = () => {
+  if (selectedShapes.length == 0) {
+    alert("You need to select atleast 1 shape")
+    return
+  }
   animate = !animate
   for (let i = 0; i < selectedShapes.length; i++) {
-    shapes[selectedShapes[i]].animate = animate
-    if (animate) {
-      shapes[selectedShapes[i]].animateShape()
+    for (let j = 0; j < shapes.length; j++) {
+      if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].animate = animate
+        if (animate) {
+          shapes[j].animateShape()
+        }
+      }
     }
   }
 }
