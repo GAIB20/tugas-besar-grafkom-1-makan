@@ -32,13 +32,13 @@ class Square extends Shape {
       this.vertices[9] = this.params.b
 
       this.vertices[10] = this.params.initPoint.x + signX * minDim
-      this.vertices[11] = this.params.initPoint.y + signY * minDim * (canvas.width/canvas.height)
+      this.vertices[11] = this.params.initPoint.y + signY * minDim
       this.vertices[12] = this.params.r
       this.vertices[13] = this.params.g
       this.vertices[14] = this.params.b
 
       this.vertices[15] = this.params.initPoint.x
-      this.vertices[16] = this.params.initPoint.y + signY * minDim * (canvas.width/canvas.height)
+      this.vertices[16] = this.params.initPoint.y + signY * minDim
       this.vertices[17] = this.params.r
       this.vertices[18] = this.params.g
       this.vertices[19] = this.params.b
@@ -71,13 +71,13 @@ class Square extends Shape {
       this.vertices[9] = this.params.b
 
       this.vertices[10] = this.params.initPoint.x + signX * minDim
-      this.vertices[11] = this.params.initPoint.y + signY * minDim * (canvas.width/canvas.height)
+      this.vertices[11] = this.params.initPoint.y + signY * minDim
       this.vertices[12] = this.params.r
       this.vertices[13] = this.params.g
       this.vertices[14] = this.params.b
 
       this.vertices[15] = this.params.initPoint.x
-      this.vertices[16] = this.params.initPoint.y + signY * minDim * (canvas.width/canvas.height)
+      this.vertices[16] = this.params.initPoint.y + signY * minDim
       this.vertices[17] = this.params.r
       this.vertices[18] = this.params.g
       this.vertices[19] = this.params.b
