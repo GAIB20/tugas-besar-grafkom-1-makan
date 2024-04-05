@@ -4,19 +4,33 @@ var isDrawingPolygon = false
 var selectedShapes = []
 var selectedPoints = []
 var animate = false
+var lockpolygonpoint = false
 
 // Shape Checkbox Listener
 document.querySelector(".shape-setting").addEventListener("change", (event) => {
   if (event.target.type === "checkbox") {
-    let shapeId = event.target.id
+    let targetId = event.target.id
     let isChecked = event.target.checked
 
-    if (shapeId.includes("-")) {
+    if (targetId.includes("-")) {
       // Point checkbox
-      if (isChecked && !selectedPoints.includes(shapeId)) {
-        selectedPoints.push(shapeId)
+      if (isChecked) {
+        // remove the point from the selectedPoints if it is from another shape
+        selectedPoints = selectedPoints.filter(
+          (pointId) => !pointId.startsWith(targetId.split("-")[0])
+        )
+        // uncheck all other point from the same shape that is not targetId
+        let pointCheckboxes = document.querySelectorAll(
+          `.shape-point-setting input[id^='${targetId.split("-")[0]}-']`
+        )
+        pointCheckboxes.forEach((checkbox) => {
+          if (checkbox.id !== targetId) {
+            checkbox.checked = false
+          }
+        })
+        selectedPoints.push(targetId)
       } else {
-        let index = selectedPoints.indexOf(shapeId)
+        let index = selectedPoints.indexOf(targetId)
         if (index !== -1) {
           selectedPoints.splice(index, 1)
         }
@@ -24,21 +38,21 @@ document.querySelector(".shape-setting").addEventListener("change", (event) => {
     } else {
       // Shape checkbox
       let pointCheckboxes = document.querySelectorAll(
-        `.shape-point-setting input[id^='${shapeId}-']`
+        `.shape-point-setting input[id^='${targetId}-']`
       )
       pointCheckboxes.forEach((checkbox) => {
         checkbox.checked = isChecked
       })
 
       if (isChecked) {
-        selectedShapes.push(shapeId)
+        selectedShapes.push(targetId)
         pointCheckboxes.forEach((checkbox) => {
           if (!selectedPoints.includes(checkbox.id)) {
             selectedPoints.push(checkbox.id)
           }
         })
       } else {
-        let index = selectedShapes.indexOf(shapeId)
+        let index = selectedShapes.indexOf(targetId)
         if (index !== -1) {
           selectedShapes.splice(index, 1)
         }
@@ -324,10 +338,17 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
     let pointIdx = parseInt(selectedPoints[i].split("-")[1])
     for (let j = 0; j < shapes.length; j++) {
       if (shapes[j].shapeID == shapeId && !selectedShapes.includes(shapeId)) {
-        let PointX = shapes[j].vertices[pointIdx * 5]
-        let PointY = shapes[j].vertices[pointIdx * 5 + 1]
-        shapes[j].params.midPoint = [PointX, PointY]
-        shapes[j].params.scale = value
+        if (shapes[j].shapeName == "Polygon" && !lockpolygonpoint) {
+          shapes[j].vertices[pointIdx * 5] = parseFloat(value)
+        } else if (shapes[j].shapeName == "Rectangle") {
+          shapes[j].vertices[pointIdx * 5] = parseFloat(value)
+          shapes[j].vertices[(3 - pointIdx) * 5] = parseFloat(value)
+        } else {
+          let PointX = shapes[j].vertices[pointIdx * 5]
+          let PointY = shapes[j].vertices[pointIdx * 5 + 1]
+          shapes[j].params.midPoint = [PointX, PointY]
+          shapes[j].params.scale = value
+        }
       }
     }
   }
@@ -350,10 +371,18 @@ document.querySelector("#y-translate").addEventListener("input", (event) => {
     let pointIdx = parseInt(selectedPoints[i].split("-")[1])
     for (let j = 0; j < shapes.length; j++) {
       if (shapes[j].shapeID == shapeId && !selectedShapes.includes(shapeId)) {
-        let PointX = shapes[j].vertices[pointIdx * 5]
-        let PointY = shapes[j].vertices[pointIdx * 5 + 1]
-        shapes[j].params.midPoint = [PointX, PointY]
-        shapes[j].params.scale = value
+        if (shapes[j].shapeName == "Polygon" && !lockpolygonpoint) {
+          shapes[j].vertices[pointIdx * 5] = parseFloat(value)
+        } else if (shapes[j].shapeName == "Rectangle") {
+          shapes[j].vertices[pointIdx * 5 + 1] = parseFloat(value)
+          shapes[j].vertices[pointIdx * 5 + (pointIdx % 2 == 0 ? 6 : -4)] =
+            parseFloat(value)
+        } else {
+          let PointX = shapes[j].vertices[pointIdx * 5]
+          let PointY = shapes[j].vertices[pointIdx * 5 + 1]
+          shapes[j].params.midPoint = [PointX, PointY]
+          shapes[j].params.scale = value
+        }
       }
     }
   }
@@ -411,15 +440,34 @@ document.getElementById("animate").onclick = () => {
     return
   }
   animate = !animate
+  if (animate) {
+    document.getElementById("animate").innerText = "Stop Animation"
+  } else {
+    document.getElementById("animate").innerText = "Animate"
+  }
   for (let i = 0; i < selectedShapes.length; i++) {
     for (let j = 0; j < shapes.length; j++) {
       if (shapes[j].shapeID == selectedShapes[i]) {
+        shapes[j].params.midPoint = findMidPoint(shapes[j].vertices)
         shapes[j].animate = animate
         if (animate) {
           shapes[j].animateShape()
         }
       }
     }
+  }
+}
+
+// Lock Polygon Point Listener
+document.getElementById("lockpolygonpoint").onclick = () => {
+  // change the lock text
+  lockpolygonpoint = !lockpolygonpoint
+  if (lockpolygonpoint) {
+    document.getElementById("lockpolygonpoint").innerText =
+      "Unlock Point (Polygon)"
+  } else {
+    document.getElementById("lockpolygonpoint").innerText =
+      "Lock Point (Polygon)"
   }
 }
 
@@ -489,7 +537,6 @@ document.getElementById("load").onclick = () => {
   }
   input.click()
 }
-
 
 // Help listener
 var modal = document.getElementById("modal-help")
