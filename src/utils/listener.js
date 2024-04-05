@@ -414,3 +414,21 @@ document.getElementById("load").onclick = () => {
   }
   input.click()
 }
+
+
+// Help listener
+var modal = document.getElementById("modal-help")
+document.getElementById("help").onclick = () => {
+  modal.style.display = "block"
+}
+
+var span = document.getElementsByClassName("modal-close")[0]
+span.onclick = () => {
+  modal.style.display = "none"
+}
+
+window.onclick = (event) => {
+  if (event.target == modal) {
+    modal.style.display = "none"
+  }
+}
