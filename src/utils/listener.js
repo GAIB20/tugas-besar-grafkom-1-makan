@@ -399,6 +399,7 @@ document.getElementById("load").onclick = () => {
             break
           case "Polygon":
             shape = new Polygon(shapeIdx, gl)
+            shape.isShapePointEditorCreated = true
             break
           default:
             console.log("Unknown shape selected")
