@@ -2,7 +2,7 @@
 
 > Tugas Besar 1 IF3260 Grafika Komputer
 
-![](./img/program.png)
+![](./doc/img/program.png)
 
 ## Daftar Isi
 - [Cara Menjalankan Program](#cara-menjalankan-program)
@@ -24,7 +24,7 @@ Buka file `index.html` pada browser
 ### Membuat Objek Baru
 1. Pilih salah satu icon objek yang ingin dibuat (**Garis**, **Persegi**, **Persegi Panjang**, **Polygon**) pada ***toolbar***
 
-![](./img/toolbar.png)
+![](./doc/img/toolbar.png)
 
 2. Untuk **Polygon**
     - Klik pada canvas untuk menambahkan titik
@@ -36,12 +36,12 @@ Buka file `index.html` pada browser
 ### Shape and Point Menu
 Setiap melakukan *action*, gunakan menu ini untuk memilh elemen untuk melakukan aksi
 
-<img src="./img/shapePointMenu.png" width=150>
+<img src="./doc/img/shapePointMenu.png" width=150>
 
 
 
 ### Transformasi Objek
-<img src="./img/Transformation.png" width=150>
+<img src="./doc/img/Transformation.png" width=150>
 
 1. Pilih elemen objek yang ingin ditransformasi (**Objek** atau **Titik**) pada ***Shape and Point Menu***
 2. Gunakan ***Slider*** untuk melakukan transformasi
@@ -62,7 +62,7 @@ Setiap melakukan *action*, gunakan menu ini untuk memilh elemen untuk melakukan 
 2. Klik tombol **Delete**
 
 ### Mengganti Warna Elemen
-![](./img/ColorPicker.png)
+![](./doc/img/ColorPicker.png)
 1. Pilih elemen yang ingin diubah warnanya (**Objek** atau **Titik**) pada ***Shape and Point Menu***
 2. Pilih warna yang diinginkan pada ***Color Picker***
 
@@ -75,14 +75,14 @@ Setiap melakukan *action*, gunakan menu ini untuk memilh elemen untuk melakukan 
 2. Klik tombol **Union** untuk menggabungkan objek-objek yang dipilih
 
 ### Menyimpan dan Membuka File
-![](./img/SaveLoad.png)
+![](./doc/img/SaveLoad.png)
 1. Klik tombol **Save** untuk **menyimpan** objek ke dalam file `.json`
 2. Klik tombol **Load** untuk **memuat** objek pada file `.json` yang telah disimpan sebelumnya
 
 ### Help
 Silahkan klik simbol help pada program untuk melihat cara penggunaan program
 
-![](./img/help.png)
+![](./doc/img/help.png)
 
 
 ## Kontributor
