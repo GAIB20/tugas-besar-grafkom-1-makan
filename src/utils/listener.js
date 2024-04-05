@@ -53,9 +53,60 @@ document.querySelector(".shape-setting").addEventListener("change", (event) => {
   }
 })
 
+document.getElementById("union").onclick = () => {
+  if (selectedShapes.length < 2) {
+    alert("You need to select atleast 2 shapes")
+    return
+  }
+
+  // Create the union shape
+  let unionVertices = []
+  let unionShape = new Polygon(shapeIdx, gl)
+  selectedShapes.forEach((shapeId) => {
+    let shape = shapes.find((shape) => shape.shapeID == shapeId)
+    unionVertices.push(...shape.vertices)
+  })
+  unionShape.vertices = unionVertices
+  unionShape.vertices = convexHull(unionShape.vertices)
+  unionShape.isShapePointEditorCreated = true
+  unionShape.isDone = true
+  unionShape.createShapeEditor()
+  unionShape.createPointEditor()
+  shapes.push(unionShape)
+  shapeIdx++
+
+  // Remove the selected shapes
+  shapes = shapes.filter(
+    (shape) => !selectedShapes.includes(shape.shapeID.toString())
+  )
+
+  // Remove the input and label if it is selected
+  selectedShapes.forEach((shapeId) => {
+    let input = document.getElementById(shapeId)
+    let label = document.querySelector(`label[for='${shapeId}']`)
+    input.remove()
+    label.remove()
+  })
+
+  // Remove the input and label if it is selected
+  selectedPoints.forEach((pointId) => {
+    let input = document.getElementById(pointId)
+    let label = document.querySelector(`label[for='${pointId}']`)
+    input.remove()
+    label.remove()
+  })
+
+  // Reset selected shapeects and points
+  selectedPoints = []
+  selectedShapes = []
+}
+
 // Delete Button Listener
 document.querySelector("#delete").addEventListener("click", () => {
-  // remove selected shape from list of shapes
+  if (selectedShapes.length == 0 && selectedPoints.length == 0) {
+    alert("You need to select atleast 1 shape or point")
+    return
+  }
   shapes = shapes.filter(
     (shape) => !selectedShapes.includes(shape.shapeID.toString())
   )
@@ -206,8 +257,6 @@ canvas.addEventListener("mousedown", (event) => {
 // Scale Listener
 document.querySelector("#scaling").addEventListener("input", (event) => {
   let value = event.target.value
-  console.log(shapes)
-  console.log(selectedShapes)
   for (let i = 0; i < selectedShapes.length; i++) {
     for (let j = 0; j < shapes.length; j++) {
       if (shapes[j].shapeID == selectedShapes[i]) {
@@ -357,6 +406,10 @@ document.querySelector("#objectcolor").addEventListener("input", (event) => {
 
 // Animation Listener
 document.getElementById("animate").onclick = () => {
+  if (selectedShapes.length == 0) {
+    alert("You need to select atleast 1 shape")
+    return
+  }
   animate = !animate
   for (let i = 0; i < selectedShapes.length; i++) {
     for (let j = 0; j < shapes.length; j++) {
