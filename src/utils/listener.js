@@ -338,7 +338,10 @@ document.querySelector("#x-translate").addEventListener("input", (event) => {
     let pointIdx = parseInt(selectedPoints[i].split("-")[1])
     for (let j = 0; j < shapes.length; j++) {
       if (shapes[j].shapeID == shapeId && !selectedShapes.includes(shapeId)) {
-        if (shapes[j].shapeName == "Polygon" && !lockpolygonpoint) {
+        if (
+          (shapes[j].shapeName == "Polygon" && !lockpolygonpoint) ||
+          shapes[j].shapeName == "Line"
+        ) {
           shapes[j].vertices[pointIdx * 5] = parseFloat(value)
         } else if (shapes[j].shapeName == "Rectangle") {
           shapes[j].vertices[pointIdx * 5] = parseFloat(value)
@@ -371,8 +374,11 @@ document.querySelector("#y-translate").addEventListener("input", (event) => {
     let pointIdx = parseInt(selectedPoints[i].split("-")[1])
     for (let j = 0; j < shapes.length; j++) {
       if (shapes[j].shapeID == shapeId && !selectedShapes.includes(shapeId)) {
-        if (shapes[j].shapeName == "Polygon" && !lockpolygonpoint) {
-          shapes[j].vertices[pointIdx * 5] = parseFloat(value)
+        if (
+          (shapes[j].shapeName == "Polygon" && !lockpolygonpoint) ||
+          shapes[j].shapeName == "Line"
+        ) {
+          shapes[j].vertices[pointIdx * 5 + 1] = parseFloat(value)
         } else if (shapes[j].shapeName == "Rectangle") {
           shapes[j].vertices[pointIdx * 5 + 1] = parseFloat(value)
           shapes[j].vertices[pointIdx * 5 + (pointIdx % 2 == 0 ? 6 : -4)] =
